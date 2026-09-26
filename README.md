@@ -4,8 +4,9 @@ Landing page for [SimpleSync](https://github.com/jirkacepelka/SimpleSync) — a 
 
 ## Structure
 
-- `index.html` — the page
-- `styles.css` — styles
+- `index.html` — the landing page
+- `guide.html` — the setup guide (server, plugin, sharing, backups, troubleshooting)
+- `styles.css` — styles shared by both pages
 - `script.js` — small interactive bits
 - `assets/` — icon and admin screenshots
 

@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup guide – SimpleSync</title>
+<meta name="description" content="How to install the SimpleSync server, connect Obsidian on desktop and phone, share vaults and restore from backups.">
+<meta name="theme-color" content="#161616" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+  <symbol id="i-merge" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-graph" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M11 7.2 6.2 16.8M13 7.2l4.8 9.6M7.5 19h9"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01M6 18h.01"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
+  <symbol id="i-tablet" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+</svg>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="./"><img src="assets/icon.svg" alt=""> SimpleSync</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="./#how">How it works</a>
+      <a href="./#features">Features</a>
+      <a href="./#admin">Web admin</a>
+      <a href="./#install">Install</a>
+      <a href="guide.html" aria-current="page">Guide</a>
+      <a href="./#faq">FAQ</a>
+    </nav>
+    <div class="nav-end">
+      <a class="btn btn-quiet small" href="https://github.com/jirkacepelka/SimpleSync"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
+      <a class="btn btn-primary small" href="https://community.obsidian.md/plugins/simplesync">Get the plugin</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap docs">
+  <aside class="toc" aria-label="On this page">
+    <p class="toc-title">Guide</p>
+    <ol>
+      <li><a href="#before">Before you start</a></li>
+      <li><a href="#server">1. Install the server</a></li>
+      <li><a href="#admin-account">2. Create the admin account</a></li>
+      <li><a href="#vaults">3. Create vaults and users</a></li>
+      <li><a href="#plugin">4. Install the plugin</a></li>
+      <li><a href="#connect">5. Connect a vault</a></li>
+      <li class="sub"><a href="#ready-made">Ready-made vault</a></li>
+      <li class="sub"><a href="#first-connect">What connecting does</a></li>
+      <li><a href="#phone">Phones and tablets</a></li>
+      <li><a href="#outside">Reach it from anywhere</a></li>
+      <li><a href="#daily">Everyday use</a></li>
+      <li><a href="#sharing">Sharing a vault</a></li>
+      <li><a href="#restore">History, trash and backups</a></li>
+      <li><a href="#devices">Lost a device?</a></li>
+      <li><a href="#update">Updating</a></li>
+      <li><a href="#trouble">Troubleshooting</a></li>
+    </ol>
+  </aside>
+
+  <article class="doc-body">
+    <header>
+      <span class="eyebrow">Setup guide</span>
+      <h1>Set up SimpleSync</h1>
+      <p>From an empty machine to a vault that syncs between your computer and phone. It takes about ten minutes.</p>
+    </header>
+
+    <h2 id="before">Before you start</h2>
+    <p>You need two things:</p>
+    <ul>
+      <li><b>A machine that runs Docker</b> and stays on: a ZimaOS or CasaOS box, a Synology or Unraid NAS, a Raspberry Pi, or a small VPS with 1 GB of RAM.</li>
+      <li><b>Obsidian 1.4 or newer</b> on every device you want to sync. Desktop, iPhone, iPad and Android all work.</li>
+    </ul>
+    <div class="callout">
+      <div class="callout-title"><svg class="icon"><use href="#i-info"/></svg>How the pieces fit</div>
+      <p>The server stores your vaults and has a web admin. The Obsidian plugin logs in to the server and keeps one Obsidian vault in sync with one vault on the server. You can have several vaults and several users on one server.</p>
+    </div>
+
+    <h2 id="server">1. Install the server</h2>
+    <p>Pick the option that matches your machine.</p>
+    <div class="panes">
+      <div class="seg" role="tablist">
+        <button class="tab on" role="tab" aria-selected="true" data-pane="zima">ZimaOS / CasaOS</button>
+        <button class="tab" role="tab" aria-selected="false" data-pane="vps">VPS with HTTPS</button>
+        <button class="tab" role="tab" aria-selected="false" data-pane="docker">Docker</button>
+      </div>
+      <div class="pane" id="pane-zima">
+        <ol>
+          <li>Open <span class="path">App Store<span class="sep">›</span>+<span class="sep">›</span>Install a customized app</span> and switch to <b>YAML</b>.</li>
+          <li>Delete what's there (<kbd>Ctrl</kbd> <kbd>A</kbd>, <kbd>Delete</kbd>) and paste the YAML below.</li>
+          <li>Click <b>Install</b>, then open <code>http://&lt;zimaos-ip&gt;:8080</code>.</li>
+        </ol>
+        <div class="code"><button class="copy" type="button">Copy</button><pre class="tall"><code>name: obsisync
+services:
+  obsisync:
+    image: ghcr.io/jirkacepelka/obsisync:latest
+    container_name: obsisync
+    restart: unless-stopped
+    ports:
+      - target: 8080
+        published: "8080"
+        protocol: tcp
+    environment:
+      TZ: Europe/Prague
+    volumes:
+      - type: bind
+        source: /DATA/AppData/obsisync/data
+        target: /data
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  main: obsisync
+  category: Utilities
+  title:
+    en_us: SimpleSync
+  tagline:
+    en_us: Simple self-hosted sync for Obsidian
+  icon: https://raw.githubusercontent.com/jirkacepelka/SimpleSync/main/server/internal/web/static/icon.svg
+  index: /
+  port_map: "8080"
+  scheme: http</code></pre></div>
+        <p>Your data lives in <code>/DATA/AppData/obsisync/data</code>.</p>
+      </div>
+      <div class="pane" id="pane-vps" hidden>
+        <ol>
+          <li>At your domain registrar, add a DNS <b>A record</b> such as <code>sync.example.com</code> pointing to the VPS's IP address.</li>
+          <li>On the VPS, run the commands below. Caddy obtains a Let's Encrypt certificate by itself.</li>
+          <li>Open <code>https://sync.example.com</code>.</li>
+        </ol>
+        <div class="code"><button class="copy" type="button">Copy</button><pre><code>mkdir simplesync &amp;&amp; cd simplesync
+curl -O https://raw.githubusercontent.com/jirkacepelka/SimpleSync/main/deploy/docker-compose.caddy.yml
+DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code></pre></div>
+      </div>
+      <div class="pane" id="pane-docker" hidden>
+        <p>Any machine with Docker. Change <code>TZ</code> to your time zone; it's used for the times shown in the web admin.</p>
+        <div class="code"><button class="copy" type="button">Copy</button><pre><code>docker run -d --name obsisync -p 8080:8080 -e TZ=Europe/Prague \
+  -v $PWD/data:/data --restart unless-stopped \
+  ghcr.io/jirkacepelka/obsisync:latest</code></pre></div>
+        <p>Then open <code>http://&lt;machine-ip&gt;:8080</code>.</p>
+      </div>
+    </div>
+
+    <h2 id="admin-account">2. Create the admin account</h2>
+    <p>The first time you open the web admin, it asks you to create the administrator account. Do this right after installing: until that account exists, whoever opens the page first can create it.</p>
+    <p>The language picker is at the bottom of every page of the web admin.</p>
+
+    <h2 id="vaults">3. Create vaults and users</h2>
+    <p>In the web admin, go to <b>Vaults</b> and click <b>New vault</b>. Give it a name and choose:</p>
+    <ul>
+      <li><b>Backup frequency</b>: off, every hour, every 6 hours, daily or weekly.</li>
+      <li><b>Keep backups for</b>: 7 days, 30 days, 90 days, 1 year or forever.</li>
+      <li>Optionally <b>also save as ZIP</b>, which writes every backup as a separate ZIP file to <code>data/backups/</code>.</li>
+    </ul>
+    <figure class="figure"><img src="assets/admin-newvault.png" alt="The New vault form in the web admin" width="2400" height="940" loading="lazy"><figcaption>Creating a vault with a backup plan.</figcaption></figure>
+    <p>Syncing only for yourself? You can skip users. To add family or colleagues, open <b>Users</b>, create an account for each person, then add them to a vault (see <a href="#sharing">Sharing a vault</a>).</p>
+    <div class="callout tip">
+      <div class="callout-title"><svg class="icon"><use href="#i-bulb"/></svg>Already have a vault full of notes?</div>
+      <p>You don't need to create it on the server first. Log in from the plugin on the device that has the notes and choose <b>Create a new vault from this one</b> in step 5. It uploads the vault for you.</p>
+    </div>
+
+    <h2 id="plugin">4. Install the plugin</h2>
+    <p>SimpleSync is listed in Obsidian's community plugins.</p>
+    <ol>
+      <li>In Obsidian, open <span class="path">Settings<span class="sep">›</span>Community plugins</span>. If restricted mode is on, click <b>Turn on community plugins</b>.</li>
+      <li>Click <b>Browse</b> and search for <b>SimpleSync</b>.</li>
+      <li>Click <b>Install</b>, then <b>Enable</b>.</li>
+    </ol>
+    <div class="plugin-card">
+      <img src="assets/icon.svg" alt="">
+      <div class="txt">
+        <h3>SimpleSync</h3>
+        <p>by jirkacepelka · Desktop and mobile</p>
+      </div>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://community.obsidian.md/plugins/simplesync">Plugin page <svg class="icon"><use href="#i-external"/></svg></a>
+        <a class="btn btn-secondary" href="obsidian://show-plugin?id=simplesync">Open in Obsidian</a>
+      </div>
+    </div>
+    <p>The <b>Open in Obsidian</b> button jumps straight to the plugin inside Obsidian, if Obsidian is installed on this device.</p>
+
+    <h2 id="connect">5. Connect a vault</h2>
+    <ol>
+      <li>Open <span class="path">Settings<span class="sep">›</span>SimpleSync</span>.</li>
+      <li>Enter the <b>Server address</b> (for example <code>https://sync.example.com</code> or <code>192.168.1.10:8080</code>), your <b>Name</b> and <b>Password</b>, and click <b>Log in</b>.</li>
+      <li>Under <b>Vault on the server</b>, pick a vault and click <b>Connect</b>.</li>
+    </ol>
+    <p>Or, to upload the vault that's open in Obsidian right now, use <b>Or create a new vault from this one</b> and click <b>Create and connect</b>.</p>
+    <p>That's it. The status bar at the bottom of Obsidian shows <span class="sym">✓ SimpleSync</span> once the first sync finishes.</p>
+
+    <h3 id="ready-made">The shortcut: download a ready-made vault</h3>
+    <p>For a new computer, this skips steps 4 and 5.</p>
+    <ol>
+      <li>In the web admin, click <b>Download for Obsidian</b> next to a vault. For an empty one, use <span class="path">Plugin<span class="sep">›</span>Download ready-made vault</span>.</li>
+      <li>Unzip it, for example into Documents.</li>
+      <li>In Obsidian choose <b>Open folder as vault</b> and pick the unzipped folder.</li>
+      <li>Click <b>Trust author and enable plugins</b>.</li>
+      <li>Enter your password in the window that appears. The vault connects by itself and starts syncing.</li>
+    </ol>
+    <p>The ZIP contains the notes and the plugin, already set up with your server address and name. It never contains a password or token.</p>
+
+    <h3 id="first-connect">What connecting does</h3>
+    <div class="callout warning">
+      <div class="callout-title"><svg class="icon"><use href="#i-alert"/></svg>The server vault wins</div>
+      <p>If the server vault you connect to already has files, the Obsidian vault on this device is replaced by the server's copy. Nothing is uploaded from this device. Files that exist only here, or differ from the server, are moved to Obsidian's trash (<code>.trash</code>), so nothing is lost. The plugin asks before connecting.</p>
+    </div>
+    <ul>
+      <li><b>The server vault has content</b>: this device becomes an exact copy of it. An empty or brand-new Obsidian vault can never overwrite the server.</li>
+      <li><b>The server vault is empty</b>: the content of this device is uploaded to it.</li>
+      <li>If the first sync is interrupted, the next one continues in the same “copy the server” mode.</li>
+    </ul>
+    <p>After the first sync, changes flow in both directions.</p>
+
+    <h2 id="phone">Phones and tablets</h2>
+    <p>On iPhone, iPad and Android the steps are the same as on desktop:</p>
+    <ol>
+      <li>Create a new, empty vault in the Obsidian app. Don't use iCloud for it, so two sync tools don't fight over the same files.</li>
+      <li>Install SimpleSync from <span class="path">Settings<span class="sep">›</span>Community plugins<span class="sep">›</span>Browse</span>.</li>
+      <li>Log in and connect to the vault. The server's copy is downloaded to the phone.</li>
+    </ol>
+    <p>The phone syncs when a file changes, every minute while Obsidian is open, and whenever you bring Obsidian back to the foreground.</p>
+    <div class="callout">
+      <div class="callout-title"><svg class="icon"><use href="#i-info"/></svg>Use HTTPS for iOS</div>
+      <p>iOS works best with an <code>https://</code> address. See the next section.</p>
+    </div>
+
+    <h2 id="outside">Reach it from anywhere</h2>
+    <p>To sync a phone on mobile data, the server has to be reachable outside your home network. Pick one:</p>
+    <ul>
+      <li><b>Tailscale</b> (in the ZimaOS App Store): install it on the server and on your devices. <code>tailscale serve</code> gives you a free HTTPS address.</li>
+      <li><b>Cloudflare Tunnel</b>: publishes the server on your domain with HTTPS, without opening ports on your router.</li>
+      <li><b>A VPS</b> with the Caddy setup from step 1, which already has HTTPS.</li>
+    </ul>
+    <p>The plugin warns you before sending a password over plain <code>http://</code> outside your home network.</p>
+
+    <h2 id="daily">Everyday use</h2>
+    <p>Once connected, there's nothing to do. Edit notes as usual; changes reach other devices within seconds. The item in the status bar shows the state, and clicking it syncs right away.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Status bar</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sym">✓ SimpleSync</span></td><td>Synced</td></tr>
+          <tr><td><span class="sym">⟳ SimpleSync</span></td><td>Syncing</td></tr>
+          <tr><td><span class="sym">⚡ SimpleSync</span></td><td>Server unreachable; it will retry by itself</td></tr>
+          <tr><td><span class="sym">⚠ SimpleSync</span></td><td>An error, for example an expired login. Open the plugin settings for details.</td></tr>
+          <tr><td><span class="sym">○ SimpleSync</span></td><td>Not connected to a vault yet</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul>
+      <li><b>Sync now</b> is also in the command palette.</li>
+      <li><b>Conflicts</b>: if the same lines changed on two devices at once, you get a notice and your version is saved next to the note as <code>Note (conflict 2026-09-26 1530 jirka).md</code>. Compare the two and delete the copy.</li>
+      <li><b>Deleting many files</b>: if a sync would delete more than half of the files on the server, it pauses and asks whether to <b>Download them again</b> or <b>Delete on the server too</b>.</li>
+      <li><b>Also sync Obsidian settings</b> in the plugin settings syncs the <code>.obsidian</code> folder (appearance, plugins, hotkeys). Turn it on only in vaults shared with people you trust, because synced plugins run on every device.</li>
+      <li><b>Disconnect vault</b> stops syncing. Files stay on the device and on the server.</li>
+    </ul>
+    <p>Not synced: <code>.trash</code>, <code>.git</code>, other hidden folders, <code>workspace.json</code> and the plugin's own login token.</p>
+
+    <h2 id="sharing">Sharing a vault</h2>
+    <p>Open the vault in the web admin, go to <b>Members</b> and add a user with one of these roles:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Role</th><th>Can do</th></tr></thead>
+        <tbody>
+          <tr><td>Owner</td><td>Everything, including members, backups and deleting the vault</td></tr>
+          <tr><td>Editor</td><td>Read and change notes</td></tr>
+          <tr><td>Read only</td><td>Sync the vault but not change it; the plugin shows “Synced (read only)”</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The person then installs the plugin, logs in with their own name and password, and sees the vault in their list.</p>
+
+    <h2 id="restore">History, trash and backups</h2>
+    <h3>Restore an older version of a note</h3>
+    <p>Open the vault in the web admin, go to <b>Files</b>, open the note and switch to <b>Version history</b>. Preview any version and click restore. The restored version syncs to every device.</p>
+    <figure class="figure"><img src="assets/admin-history.png" alt="Version history of a note in the web admin" width="2400" height="1824" loading="lazy"><figcaption>Every saved version, with a preview.</figcaption></figure>
+    <h3>Bring back a deleted file</h3>
+    <p>Deleted files are in the vault's <b>Trash</b> tab in the web admin. Restore them from there.</p>
+    <h3>Restore from a backup</h3>
+    <p>In the vault's <b>Backups</b> tab you can click <b>Back up now</b>, download a backup as ZIP, restore a single file, or restore the <b>whole vault</b>. Restoring the whole vault first saves the current state as a “Before restore” backup, then sends the changes to every device like a normal sync.</p>
+    <p>Backups store identical files only once, so they take very little space. A scheduled backup is skipped when nothing changed, and the newest backup is never deleted.</p>
+
+    <h2 id="devices">Lost a device?</h2>
+    <p>Open <b>Devices</b> in the web admin. Every Obsidian login is listed there; click log out next to the lost one and it loses access immediately. Its password was never stored on the device, only a token that no longer works.</p>
+
+    <h2 id="update">Updating</h2>
+    <ul>
+      <li><b>Plugin</b>: Obsidian shows updates in <span class="path">Settings<span class="sep">›</span>Community plugins<span class="sep">›</span>Check for updates</span>.</li>
+      <li><b>Server on ZimaOS</b>: open the app's settings and update or reinstall it.</li>
+      <li><b>Server with Docker</b>: pull the new image and recreate the container. Your data in <code>/data</code> is kept.</li>
+    </ul>
+    <div class="code"><button class="copy" type="button">Copy</button><pre><code>docker pull ghcr.io/jirkacepelka/obsisync:latest
+docker rm -f obsisync
+# then run the same docker run command as in step 1</code></pre></div>
+
+    <h2 id="trouble">Troubleshooting</h2>
+    <h3>“No SimpleSync server is running at this address”</h3>
+    <p>The address answers, but not with SimpleSync. Check the port (<code>:8080</code> by default) and whether you need <code>https://</code>. Open the same address in a browser: you should see the web admin login.</p>
+    <h3>“Server unreachable”</h3>
+    <p>The device can't reach the server at all. At home, check that the server is running and that you use its local IP. Outside, check Tailscale or your tunnel. The plugin keeps retrying on its own.</p>
+    <h3>“Too many attempts, try again in 15 minutes”</h3>
+    <p>Too many wrong passwords. Wait 15 minutes. Devices that are already logged in keep working.</p>
+    <h3>“The login expired or this device was logged out”</h3>
+    <p>Someone logged this device out in the web admin, or the account changed. Log in again in the plugin settings.</p>
+    <h3>Forgot the administrator password</h3>
+    <p>Run this on the server. If the user doesn't exist, it's created as an administrator.</p>
+    <div class="code"><button class="copy" type="button">Copy</button><pre><code>docker exec obsisync obsisync reset-password admin NewPassword123</code></pre></div>
+    <h3>Back up the whole server</h3>
+    <p>Everything is in the <code>data</code> folder: the database, file contents and ZIP backups. Copy that folder. For a consistent copy of the database while the server runs:</p>
+    <div class="code"><button class="copy" type="button">Copy</button><pre><code>docker exec obsisync obsisync backup-db /data/obsisync-backup.db</code></pre></div>
+    <p>Still stuck? <a href="https://github.com/jirkacepelka/SimpleSync/issues">Open an issue on GitHub</a>.</p>
+
+    <nav class="next" aria-label="More">
+      <a href="./"><small>Back to</small><span>SimpleSync home</span></a>
+      <a href="https://community.obsidian.md/plugins/simplesync"><small>Get it</small><span>SimpleSync in community plugins ↗</span></a>
+    </nav>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <a class="logo" href="./"><img src="assets/icon.svg" alt=""> SimpleSync</a>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="guide.html">Setup guide</a>
+      <a href="https://community.obsidian.md/plugins/simplesync">Obsidian plugin</a>
+      <a href="https://github.com/jirkacepelka/SimpleSync">GitHub</a>
+      <a href="https://github.com/jirkacepelka/SimpleSync/blob/main/LICENSE">MIT License</a>
+    </nav>
+    <span class="foot-note">Not affiliated with Obsidian. Obsidian is a trademark of Dynalist Inc.</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
