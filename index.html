@@ -55,6 +55,8 @@
     <nav class="nav-links" aria-label="Main">
       <a href="#how">How it works</a>
       <a href="#features">Features</a>
+      <a href="#editor">Editor</a>
+      <a href="#publish">Publishing</a>
       <a href="#admin">Web admin</a>
       <a href="#install">Install</a>
       <a href="guide.html">Guide</a>
@@ -73,7 +75,7 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <a class="kicker" href="https://community.obsidian.md/plugins/simplesync"><span class="dot"></span><b>Now in Obsidian community plugins</b> · v0.3.5</a>
+      <a class="kicker" href="#editor"><span class="dot"></span><b>New in 0.4: web editor and publishing</b></a>
       <h1>Sync your vault <span class="soft">through a server</span> <span class="accent">you own.</span></h1>
       <p class="lead">SimpleSync is a small server and an Obsidian plugin. Enter the server address, your name and password, then pick a vault. Your notes live on a ZimaOS box, a NAS or a €4 VPS, and nowhere else.</p>
       <div class="cta">
@@ -83,6 +85,7 @@
       <ul class="hero-points">
         <li><svg class="icon"><use href="#i-check"/></svg>Free and open source</li>
         <li><svg class="icon"><use href="#i-check"/></svg>Desktop, iPhone, iPad, Android</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Edit in any browser</li>
         <li><svg class="icon"><use href="#i-check"/></svg>History and backups</li>
       </ul>
     </div>
@@ -243,6 +246,48 @@
   </div>
 </section>
 
+<!-- ============ WEB EDITOR ============ -->
+<section class="section" id="editor">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Web editor</span>
+        <h2>No Obsidian at hand? Write in the browser.</h2>
+      </div>
+      <p>Every vault opens in a full editor on your server. On a work computer, a borrowed laptop or a phone without the app, and for people who never installed Obsidian at all.</p>
+    </div>
+    <div class="shot">
+      <img src="assets/editor.png" alt="The SimpleSync web editor: file tree, Markdown source and live preview side by side" width="2400" height="1480" loading="lazy">
+    </div>
+    <div class="editor-points">
+      <div><h3>Saved as you type</h3><p>Changes reach Obsidian on every device within seconds, through the same sync as the plugin. Concurrent edits are merged line by line.</p></div>
+      <div><h3>Obsidian syntax</h3><p>Live preview of <code>[[wikilinks]]</code>, embedded images, callouts, highlights, tags, tasks, tables and properties.</p></div>
+      <div><h3>Files, not just text</h3><p>Create, rename and delete notes and folders. Paste or drop images, type <code>[[</code> to link a note.</p></div>
+      <div><h3>Roles respected</h3><p>Owners and editors can write. Read-only members get a clean reading view.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLISHING ============ -->
+<section class="section" id="publish">
+  <div class="wrap split">
+    <div class="shot">
+      <img src="assets/published.png" alt="A published note on a public SimpleSync site" width="2400" height="1480" loading="lazy">
+    </div>
+    <div>
+      <span class="eyebrow">Publishing</span>
+      <h2>Turn notes into a website</h2>
+      <p>Mark a note with <code>publish: true</code>, or publish a whole folder, and it appears on a public site served by your own server. Anyone with the address can read it, no account needed.</p>
+      <div class="url-chip"><svg class="icon"><use href="#i-globe"/></svg><span>sync.example.com/p/<b>garden</b>/</span></div>
+      <ul class="checks">
+        <li><svg class="icon"><use href="#i-check"/></svg>Navigation, front page and Obsidian-style rendering</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Links to private notes stay plain text, names never leak</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Images are public only when a published note uses them</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- ============ CONFLICTS ============ -->
 <section class="section" id="conflicts">
   <div class="wrap split">
@@ -302,7 +347,7 @@
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-devices" data-caption="Devices: every Obsidian login. Logging one out removes its access immediately.">Devices</button>
     </div>
     <div class="shot">
-      <img id="shot" src="assets/admin-dashboard.png" alt="Overview" width="2400" height="940">
+      <img id="shot" src="assets/admin-dashboard.png" alt="Overview" width="2400" height="1120">
     </div>
     <p class="shot-caption" id="shotCaption">Overview: your vaults, their backup plans, devices online and disk usage.</p>
   </div>
@@ -438,6 +483,8 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
       <details><summary>Does it replace Obsidian Sync?</summary><p>It does the same job, keeping vaults in sync between devices, but on your own server. Obsidian Sync is a great paid service; SimpleSync is for people who want to self-host.</p></details>
       <details><summary>What happens when I connect a new device?</summary><p>If the vault on the server has content, the server always wins: the device becomes an exact copy and nothing is uploaded from it. Files that were only on the device are moved to Obsidian's trash, so nothing is lost. The plugin warns you before this happens. To upload an existing vault, use “Create a new vault from this one”.</p></details>
       <details><summary>Can I use it outside my home network?</summary><p>Yes. On a VPS you get HTTPS automatically. At home, the easiest way is Tailscale or a Cloudflare Tunnel. See <a class="link-accent" href="guide.html#outside">Reach it from anywhere</a>.</p></details>
+      <details><summary>Do I need Obsidian on every device?</summary><p>No. Every vault can be opened and edited in the browser, on the server's own web page. Changes show up in Obsidian on your other devices within seconds.</p></details>
+      <details><summary>Is anything public?</summary><p>Only what you publish. Publishing is off until a vault owner turns it on, and then only notes marked <code>publish: true</code> (or one chosen folder) are on the public site. Everything else needs a login.</p></details>
       <details><summary>Is it end-to-end encrypted?</summary><p>No. The server can read the notes, which is what makes version previews and server-side backups possible. Since you run the server, that's you.</p></details>
       <details><summary>How do I back up the server?</summary><p>Everything lives in one data folder. Copy it, or use the built-in scheduled backups with optional ZIP files.</p></details>
     </div>

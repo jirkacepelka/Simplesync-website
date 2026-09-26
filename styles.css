@@ -363,7 +363,7 @@ kbd { font-size: .8em; border: 1px solid var(--line-strong); border-bottom-width
 @media (max-width: 900px) { .install { grid-template-columns: 1fr; } }
 .panes { border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--bg-raised); }
 .panes .seg { margin: 12px 12px 0; }
-.pane { padding: 18px 20px 20px; display: grid; gap: 14px; }
+.pane { padding: 18px 20px 20px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
 .pane[hidden] { display: none; }
 .pane > p { color: var(--muted); }
 .code { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
@@ -450,7 +450,7 @@ kbd { font-size: .8em; border: 1px solid var(--line-strong); border-bottom-width
 .toc .sub a { padding-left: 20px; font-size: .86rem; }
 .toc .sub a::before { width: 7px; height: 7px; margin-left: -18px; margin-right: 4px; }
 @media (max-width: 900px) {
-  .docs { grid-template-columns: 1fr; gap: 28px; padding-top: 32px; }
+  .docs { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-top: 32px; }
   .toc { position: static; max-height: none; border: 1px solid var(--line); border-radius: var(--r-lg); padding: 18px 16px; }
   .toc .sub { display: none; }
 }
@@ -502,3 +502,14 @@ figure.figure { margin: 18px 0 0; }
 .next small { color: var(--faint); font-size: .8rem; }
 .next span { color: var(--text-strong); font-weight: 500; }
 @media (max-width: 560px) { .next { grid-template-columns: 1fr; } }
+
+/* ---------- web editor & publishing ---------- */
+#editor .shot { margin-bottom: 28px; }
+.editor-points { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+.editor-points h3 { font-size: 1rem; font-weight: 600; letter-spacing: -.01em; margin-bottom: 8px; }
+.editor-points p { color: var(--muted); font-size: .93rem; }
+@media (max-width: 900px) { .editor-points { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .editor-points { grid-template-columns: 1fr; } }
+.url-chip { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 9px 13px; border-radius: 10px; border: 1px solid var(--line-strong); background: var(--surface); font: .86rem/1.3 var(--mono); color: var(--muted); max-width: 100%; overflow-wrap: anywhere; }
+.url-chip b { color: var(--accent-text); font-weight: 500; }
+.url-chip .icon { width: 15px; height: 15px; color: var(--faint); }
