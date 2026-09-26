@@ -52,58 +52,78 @@ document.querySelectorAll(".copy").forEach((btn) => {
   });
 });
 
-// Hero: type a line on the desktop, then show it arriving on the phone.
-// At rest (and with reduced motion) both already show the finished line.
-const typeLine = document.getElementById("typeLine");
-if (typeLine && !reduceMotion) {
-  const typeText = document.getElementById("typeText");
-  const syncState = document.getElementById("syncState");
-  const phoneLine = document.getElementById("phoneLine");
-  const phoneToast = document.getElementById("phoneToast");
-  const lines = ["Nara: deer park, half a day", "Hakone: onsen and a view of Fuji", "Nara: deer park, half a day"];
+// Hero: one device saves a note, the server bumps the revision,
+// the other devices pull it. At rest everything shows "synced".
+const net = document.getElementById("net");
+if (net && !reduceMotion) {
+  const nodes = Object.fromEntries([...net.querySelectorAll("[data-dev]")].map((n) => [n.dataset.dev, n]));
+  const pulses = Object.fromEntries([...net.querySelectorAll(".pulse")].map((p) => [p.dataset.for, p]));
+  const revEl = document.getElementById("rev");
+  const rounds = [
+    { from: "mac", file: "Garden plan.md" },
+    { from: "iphone", file: "Groceries.md" },
+    { from: "pc", file: "Meeting notes.md" },
+    { from: "ipad", file: "Reading list.md" },
+  ];
+  let rev = Number(revEl.textContent);
   let round = 0;
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const status = (dev, text) => (nodes[dev].querySelector(".node-status").textContent = text);
 
-  async function play() {
-    const text = lines[round++ % lines.length];
-    typeLine.classList.add("is-typing");
-    typeText.textContent = "";
-    phoneLine.style.visibility = "hidden";
-    phoneLine.classList.remove("lit");
-    phoneToast.textContent = "Synced 1 min ago";
-    for (const ch of text) {
-      typeText.textContent += ch;
-      await wait(45 + Math.random() * 60);
-    }
-    await wait(500);
-    typeLine.classList.remove("is-typing");
-    syncState.textContent = "⟳ SimpleSync";
-    syncState.classList.add("busy");
-    await wait(1100);
-    syncState.textContent = "✓ SimpleSync";
-    syncState.classList.remove("busy");
-    phoneLine.textContent = text;
-    phoneLine.style.visibility = "visible";
-    phoneLine.classList.add("lit");
-    phoneToast.textContent = "Synced just now";
-    await wait(1400);
-    phoneLine.classList.remove("lit");
-    await wait(4500);
+  function travel(dev, toServer) {
+    const p = pulses[dev];
+    const len = p.getTotalLength();
+    const seg = 46;
+    p.style.strokeDasharray = `${seg} ${len + seg}`;
+    const a = toServer ? seg : -len;
+    const b = toServer ? -len : seg;
+    return p.animate(
+      [{ strokeDashoffset: a, opacity: 1 }, { strokeDashoffset: b, opacity: 1 }],
+      { duration: 900, easing: "cubic-bezier(.45,0,.25,1)" }
+    ).finished;
   }
 
-  // Run only while the hero is on screen.
+  async function play() {
+    const { from, file } = rounds[round++ % rounds.length];
+    const others = Object.keys(nodes).filter((d) => d !== from);
+    nodes[from].classList.add("editing", "busy");
+    status(from, `saving ${file}`);
+    await wait(1300);
+    await travel(from, true);
+    nodes[from].classList.remove("editing", "busy");
+    rev += 1;
+    revEl.textContent = rev;
+    revEl.classList.add("bump");
+    status(from, `synced · rev ${rev}`);
+    await wait(350);
+    others.forEach((d) => nodes[d].classList.add("busy"));
+    await Promise.all(others.map((d) => travel(d, false)));
+    others.forEach((d) => {
+      nodes[d].classList.remove("busy");
+      nodes[d].classList.add("fresh");
+      status(d, `got ${file}`);
+    });
+    revEl.classList.remove("bump");
+    await wait(1600);
+    others.forEach((d) => {
+      nodes[d].classList.remove("fresh");
+      status(d, `synced · rev ${rev}`);
+    });
+    await wait(2200);
+  }
+
   let visible = false;
   let running = false;
-  new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting;
-    if (visible && !running) loop();
-  }).observe(typeLine);
   async function loop() {
     running = true;
-    await wait(1200);
+    await wait(800);
     while (visible) await play();
     running = false;
   }
+  new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    if (visible && !running) loop();
+  }).observe(net);
 }
 
 // Guide: highlight the current section in the sidebar.
@@ -114,7 +134,12 @@ if (tocLinks.length) {
   const update = () => {
     let current = heads[0];
     for (const h of heads) if (h.getBoundingClientRect().top < 140) current = h;
-    tocLinks.forEach((a) => a.classList.toggle("on", a === byId.get(current.id)));
+    const idx = heads.indexOf(current);
+    tocLinks.forEach((a) => {
+      const h = heads.findIndex((x) => byId.get(x.id) === a);
+      a.classList.toggle("on", h === idx);
+      a.classList.toggle("done", h > -1 && h < idx);
+    });
   };
   document.addEventListener("scroll", update, { passive: true });
   update();
