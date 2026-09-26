@@ -4,120 +4,151 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SimpleSync – self-hosted sync for Obsidian</title>
-<meta name="description" content="Sync your Obsidian vaults through your own server. Enter address, name and password, pick a vault. Done. Free and open source.">
+<meta name="description" content="Sync your Obsidian vaults through your own server. Enter address, name and password, pick a vault. Free and open source.">
+<meta name="theme-color" content="#161616" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta property="og:title" content="SimpleSync – self-hosted sync for Obsidian">
 <meta property="og:description" content="Your notes, your server, three fields. Runs on ZimaOS, a NAS or a cheap VPS.">
 <meta property="og:image" content="assets/admin-history.png">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+  <symbol id="i-merge" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-graph" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M11 7.2 6.2 16.8M13 7.2l4.8 9.6M7.5 19h9"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01M6 18h.01"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
+</svg>
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="logo" href="#top"><img src="assets/icon.svg" alt=""> SimpleSync</a>
-    <nav class="nav-links">
+    <a class="logo" href="./"><img src="assets/icon.svg" alt=""> SimpleSync</a>
+    <nav class="nav-links" aria-label="Main">
       <a href="#how">How it works</a>
       <a href="#features">Features</a>
       <a href="#admin">Web admin</a>
       <a href="#install">Install</a>
+      <a href="guide.html">Guide</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-ghost small" href="https://github.com/jirkacepelka/SimpleSync">
-      <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-      GitHub
-    </a>
+    <div class="nav-end">
+      <a class="btn btn-quiet small" href="https://github.com/jirkacepelka/SimpleSync"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
+      <a class="btn btn-primary small" href="https://community.obsidian.md/plugins/simplesync">Get the plugin</a>
+    </div>
   </div>
 </header>
 
-<main id="top">
+<main>
 
 <!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="glow glow-a"></div><div class="glow glow-b"></div>
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <span class="pill">Free · Open source · Self-hosted</span>
-      <h1>Obsidian sync on <span class="grad">your own server</span>.<br>Three fields. Done.</h1>
-      <p class="lead">SimpleSync is a tiny server and an Obsidian plugin. Enter the server address, your name and password, pick a vault. Your notes stay on hardware you own – a ZimaOS box, a NAS or a €4 VPS.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="#install">Install in 2 minutes</a>
-        <a class="btn btn-ghost" href="https://github.com/jirkacepelka/SimpleSync">View on GitHub</a>
-      </div>
-      <ul class="hero-points">
-        <li><span>✓</span> Desktop, iPhone, iPad & Android</li>
-        <li><span>✓</span> Changes arrive within seconds</li>
-        <li><span>✓</span> Version history & scheduled backups</li>
-      </ul>
+  <div class="wrap">
+    <a class="kicker" href="https://community.obsidian.md/plugins/simplesync"><span class="dot"></span><b>Listed in Obsidian community plugins</b> · v0.3.5</a>
+    <h1>Obsidian sync on <em>your own server</em>.</h1>
+    <p class="lead">SimpleSync is a small server and an Obsidian plugin. Enter the server address, your name and password, then pick a vault. Your notes stay on hardware you own: a ZimaOS box, a NAS or a €4 VPS.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://community.obsidian.md/plugins/simplesync">Get the plugin <svg class="icon"><use href="#i-external"/></svg></a>
+      <a class="btn btn-secondary" href="guide.html">Read the setup guide</a>
     </div>
+    <p class="fineprint">Free and open source (MIT) · Desktop, iPhone, iPad and Android</p>
 
-    <!-- Mockup: Obsidian window with the plugin settings + phone -->
-    <div class="hero-visual" aria-hidden="true">
-      <div class="app-window">
-        <div class="titlebar"><i></i><i></i><i></i><span>Personal – Obsidian</span></div>
-        <div class="app-body">
-          <aside class="app-side">
-            <div class="side-title">Personal</div>
-            <div class="tree">
-              <div class="folder">▾ Daily</div>
-              <div class="file indent">2026-09-24</div>
-              <div class="file indent">2026-09-25</div>
-              <div class="folder">▾ Projects</div>
-              <div class="file indent">Garden</div>
-              <div class="file indent">Home server</div>
-              <div class="file active">Trip to Japan</div>
-              <div class="file">Ideas</div>
-            </div>
-          </aside>
-          <div class="app-editor">
-            <div class="md-h1">Trip to Japan 🇯🇵</div>
-            <div class="md-h2">Plan</div>
-            <div class="md-li">Tokyo: 3 days (Shibuya, Asakusa)</div>
-            <div class="md-li">Kyoto: 2 days (Fushimi Inari at sunrise)</div>
-            <div class="md-li">Osaka: 1 day – street food</div>
-            <div class="md-h2">Packing</div>
-            <div class="md-task done">Passport</div>
-            <div class="md-task">JR Pass</div>
+    <!-- Obsidian window + phone. The same note, synced. -->
+    <div class="stage" aria-hidden="true">
+      <div class="ob">
+        <div class="ob-top">
+          <div class="ob-lights"><i></i><i></i><i></i></div>
+          <div class="ob-tabs">
+            <div class="ob-tab on">Trip to Japan <span class="x">✕</span></div>
+            <div class="ob-tab">2026-09-26 <span class="x">✕</span></div>
           </div>
         </div>
-        <div class="statusbar"><span>6 words</span><span class="sync-ok">✓ SimpleSync</span></div>
-
-        <!-- settings modal -->
-        <div class="modal">
-          <div class="modal-head">SimpleSync</div>
-          <p class="modal-intro">Enter the address of your SimpleSync server and your login.</p>
-          <div class="field"><label>Server address</label><div class="input">sync.example.com</div></div>
-          <div class="field"><label>Name</label><div class="input">jirka</div></div>
-          <div class="field"><label>Password</label><div class="input">••••••••••</div></div>
-          <div class="modal-actions"><span class="mbtn">Log in</span></div>
+        <div class="ob-body">
+          <div class="ob-ribbon">
+            <svg class="icon"><use href="#i-folder"/></svg>
+            <svg class="icon"><use href="#i-search"/></svg>
+            <svg class="icon"><use href="#i-graph"/></svg>
+            <svg class="icon"><use href="#i-calendar"/></svg>
+          </div>
+          <div class="ob-files">
+            <div class="ob-vault">Personal</div>
+            <div class="dir">Daily</div>
+            <div class="in">2026-09-25</div>
+            <div class="in">2026-09-26</div>
+            <div class="dir">Projects</div>
+            <div class="in">Garden beds</div>
+            <div class="in">Home server</div>
+            <div class="in sel">Trip to Japan</div>
+            <div class="dir">Recipes</div>
+            <div>Reading list</div>
+            <div>Inbox</div>
+          </div>
+          <div class="ob-editor">
+            <h4>Trip to Japan</h4>
+            <h5>Plan</h5>
+            <div class="li">Tokyo: 3 days, Shibuya and Asakusa</div>
+            <div class="li">Kyoto: 2 days, <span class="link">Fushimi Inari</span> at sunrise</div>
+            <div class="li">Osaka: 1 day of street food</div>
+            <div class="li typing" id="typeLine"><span id="typeText">Nara: deer park, half a day</span><span class="caret"></span></div>
+            <h5>Packing</h5>
+            <div class="task done">Passport</div>
+            <div class="task">JR Pass</div>
+            <div class="task">Power adapter (type A)</div>
+          </div>
         </div>
+        <div class="ob-status"><span>2 backlinks</span><span>61 words</span><span class="sync" id="syncState">✓ SimpleSync</span></div>
       </div>
 
       <div class="phone">
-        <div class="notch"></div>
         <div class="phone-screen">
-          <div class="phone-top"><span>9:41</span><span>●●● ▮</span></div>
-          <div class="phone-title">Trip to Japan 🇯🇵</div>
-          <div class="phone-line w90"></div>
-          <div class="phone-line w70"></div>
-          <div class="phone-line w80"></div>
-          <div class="phone-line w50"></div>
-          <div class="phone-line w75"></div>
-          <div class="phone-toast">✓ Synced just now</div>
+          <div class="phone-bar"><span>9:41</span><span>5G ▮</span></div>
+          <div class="phone-head"><span>‹ Projects</span><span>Personal</span></div>
+          <div class="phone-body">
+            <h4>Trip to Japan</h4>
+            <h5>Plan</h5>
+            <div class="li">Tokyo: 3 days, Shibuya and Asakusa</div>
+            <div class="li">Kyoto: 2 days, Fushimi Inari at sunrise</div>
+            <div class="li">Osaka: 1 day of street food</div>
+            <div class="li fresh" id="phoneLine">Nara: deer park, half a day</div>
+            <h5>Packing</h5>
+          </div>
+          <div class="phone-toast"><b>✓</b> <span id="phoneToast">Synced just now</span></div>
         </div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ============ LOGOS / RUNS ON ============ -->
-<section class="runs">
-  <div class="wrap runs-inner">
-    <span>Runs anywhere Docker runs</span>
-    <b>ZimaOS</b><b>CasaOS</b><b>Synology</b><b>Unraid</b><b>Raspberry Pi</b><b>Any VPS</b>
+  <div class="runs">
+    <div class="wrap runs-inner">
+      <span>Runs anywhere Docker runs</span>
+      <b>ZimaOS</b><b>CasaOS</b><b>Synology</b><b>Unraid</b><b>Raspberry Pi</b><b>Any VPS</b>
+    </div>
   </div>
 </section>
 
@@ -127,56 +158,57 @@
     <div class="section-head">
       <span class="eyebrow">How it works</span>
       <h2>From zero to synced in three steps</h2>
-      <p>No config files, no database to set up, no cloud accounts.</p>
+      <p>No config files, no database to set up, no cloud accounts. The <a class="link-accent" href="guide.html">setup guide</a> walks through each step.</p>
     </div>
     <div class="steps">
       <article class="step">
-        <div class="step-num">1</div>
+        <span class="step-n">1 / Server</span>
         <h3>Start the server</h3>
-        <p>One Docker container. Paste a YAML into ZimaOS, or run one command on a VPS. Open the web page and create your admin account.</p>
-        <div class="mini-term"><span class="c-dim">$</span> docker run -p 8080:8080 \<br>&nbsp;&nbsp;ghcr.io/jirkacepelka/obsisync</div>
+        <p>One Docker container. Paste a YAML into ZimaOS or run one command on a VPS, open the web page and create your admin account.</p>
+        <div class="demo"><div class="term"><span class="d">$</span> docker run -p 8080:8080 \
+    ghcr.io/jirkacepelka/obsisync</div></div>
       </article>
       <article class="step">
-        <div class="step-num">2</div>
-        <h3>Enter three fields</h3>
-        <p>Download your vault from the web admin – the plugin is already inside and set up. Open the folder in Obsidian and type your password. Or install the plugin yourself and fill in server, name and password.</p>
-        <div class="mini-form">
-          <div class="mini-input">sync.example.com</div>
-          <div class="mini-input">jirka</div>
-          <div class="mini-input">••••••••</div>
+        <span class="step-n">2 / Plugin</span>
+        <h3>Install the plugin and log in</h3>
+        <p>Install SimpleSync from Obsidian's community plugins, then fill in three fields. Nothing else to configure.</p>
+        <div class="demo fields">
+          <label>Server address <span>sync.example.com</span></label>
+          <label>Name <span>jirka</span></label>
+          <label>Password <span>••••••••••</span></label>
         </div>
       </article>
       <article class="step">
-        <div class="step-num">3</div>
+        <span class="step-n">3 / Vault</span>
         <h3>Pick a vault</h3>
-        <p>The plugin shows the vaults your account can use. Pick one and click Connect. Every device you connect stays in sync.</p>
-        <div class="mini-pick">
-          <div class="pick on">● Personal <em>owner</em></div>
-          <div class="pick">○ Work <em>editor</em></div>
-          <div class="pick">○ Family recipes <em>read only</em></div>
+        <p>The plugin lists the vaults your account can use. Pick one and click Connect. Every device you connect stays in sync.</p>
+        <div class="demo picker">
+          <div class="on"><i></i>Personal <em>owner</em></div>
+          <div><i></i>Work <em>editor</em></div>
+          <div><i></i>Family recipes <em>read only</em></div>
         </div>
-        <p class="step-warn">⚠️ If the server vault already has notes, <b>this device's vault is replaced</b> by the server's copy (local leftovers go to Obsidian's trash). To upload an existing vault, choose <i>Create a new vault from this one</i> instead.</p>
       </article>
     </div>
   </div>
 </section>
 
 <!-- ============ FEATURES ============ -->
-<section class="section alt" id="features">
+<section class="section band" id="features">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Features</span>
-      <h2>Everything you need, nothing you have to tune</h2>
+      <h2>Everything you need, nothing to tune</h2>
     </div>
     <div class="features">
-      <div class="feature"><div class="ico">⚡</div><h3>Near-instant sync</h3><p>The server pushes “something changed” over WebSocket; devices fetch only what's new.</p></div>
-      <div class="feature"><div class="ico">🔀</div><h3>Smart conflicts</h3><p>Edits to different parts of a note are merged line by line. When they overlap, both versions are kept.</p></div>
-      <div class="feature"><div class="ico">🕘</div><h3>Version history</h3><p>Every change is kept. Preview any old version in the browser and restore it with one click.</p></div>
-      <div class="feature"><div class="ico">💾</div><h3>Scheduled backups</h3><p>Per vault: every hour, 6 hours, day or week. Keep them 7 days to forever. Optional ZIP copies.</p></div>
-      <div class="feature"><div class="ico">👥</div><h3>Users & sharing</h3><p>Share a vault with family or a team as owner, editor or read-only. Log out lost devices instantly.</p></div>
-      <div class="feature"><div class="ico">🛡️</div><h3>Server always wins on connect</h3><p>A new or empty device can never overwrite your vault. Local leftovers go to Obsidian's trash, not the server.</p></div>
-      <div class="feature"><div class="ico">🪶</div><h3>Tiny footprint</h3><p>A ~27 MB image using a few tens of MB of RAM. Go + SQLite, amd64 and arm64.</p></div>
-      <div class="feature"><div class="ico">🌍</div><h3>8 languages</h3><p>English, Čeština, Slovenčina, Deutsch, Français, Español, Italiano and Polski.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-zap"/></svg><h3>Changes arrive in seconds</h3><p>The server announces new changes over a WebSocket and devices fetch only what's new.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-merge"/></svg><h3>Conflicts merged line by line</h3><p>Edits to different parts of a note are combined. When they overlap, both versions are kept.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-history"/></svg><h3>Version history</h3><p>Every change is kept. Preview any old version in the browser and restore it with one click.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-archive"/></svg><h3>Scheduled backups</h3><p>Per vault: every hour, 6 hours, day or week. Keep them from 7 days to forever, optionally as ZIP files.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-users"/></svg><h3>Sharing with roles</h3><p>Share a vault with family or a team as owner, editor or read only. Log out a lost phone instantly.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-shield"/></svg><h3>The server wins on connect</h3><p>A new or empty device can never overwrite your vault. Local leftovers go to Obsidian's trash.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-download"/></svg><h3>Ready-made vault download</h3><p>Download a vault from the web admin with the plugin already set up. Open it, type your password, done.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-package"/></svg><h3>Tiny footprint</h3><p>A ~27 MB image that uses a few tens of MB of RAM. Go and SQLite, on amd64 and arm64.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-globe"/></svg><h3>Eight languages</h3><p>English, Čeština, Slovenčina, Deutsch, Français, Español, Italiano and Polski.</p></div>
     </div>
   </div>
 </section>
@@ -185,67 +217,63 @@
 <section class="section" id="conflicts">
   <div class="wrap split">
     <div>
-      <span class="eyebrow">Conflicts, handled</span>
+      <span class="eyebrow">Conflicts</span>
       <h2>Edited on two devices at once? Nothing is lost.</h2>
-      <p>Every write is a compare-and-swap against the version the device last saw. If someone got there first, SimpleSync runs a three-way merge. Changes on different lines simply combine. If the same line changed on both sides, the server version stays and yours is saved next to it as <code>Note (conflict … jirka).md</code>, named after whoever made that edit.</p>
+      <p>Every write is checked against the version the device last saw. If another device got there first, SimpleSync runs a three-way merge and changes on different lines simply combine. If the same line changed on both sides, the server version stays and yours is saved next to it as <code>Trip to Japan (conflict 2026-09-26 1530 jirka).md</code>.</p>
       <ul class="checks">
-        <li>Edit beats delete – always</li>
-        <li>Unicode file names work across macOS, Windows and Linux</li>
-        <li>Safety prompt before a sync would delete half your vault</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>An edit always beats a delete</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Unicode file names work across macOS, Windows and Linux</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>The plugin asks first if a sync would delete more than half your vault</li>
       </ul>
     </div>
-    <div class="merge" aria-hidden="true">
+    <div class="merge" aria-label="Example of a three-way merge">
       <div class="merge-row">
         <div class="doc">
-          <div class="doc-head">💻 MacBook</div>
+          <div class="doc-head"><svg class="icon"><use href="#i-laptop"/></svg>MacBook</div>
           <div class="ln">Tokyo: 3 days</div>
           <div class="ln add">Kyoto: 2 days</div>
           <div class="ln">Osaka: 1 day</div>
         </div>
         <div class="doc">
-          <div class="doc-head">📱 iPhone</div>
+          <div class="doc-head"><svg class="icon"><use href="#i-phone"/></svg>iPhone</div>
           <div class="ln">Tokyo: 3 days</div>
           <div class="ln">Osaka: 1 day</div>
-          <div class="ln add">Nara: deer park 🦌</div>
+          <div class="ln add">Nara: deer park</div>
         </div>
       </div>
-      <div class="merge-arrow">three-way merge ↓</div>
-      <div class="doc merged">
-        <div class="doc-head">✓ Everywhere</div>
+      <div class="merge-arrow">three-way merge</div>
+      <div class="doc result">
+        <div class="doc-head"><svg class="icon"><use href="#i-check"/></svg>On every device</div>
         <div class="ln">Tokyo: 3 days</div>
         <div class="ln add">Kyoto: 2 days</div>
         <div class="ln">Osaka: 1 day</div>
-        <div class="ln add">Nara: deer park 🦌</div>
+        <div class="ln add">Nara: deer park</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ WEB ADMIN ============ -->
-<section class="section alt" id="admin">
+<section class="section band" id="admin">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Web admin</span>
-      <h2>A friendly control panel in your browser</h2>
-      <p>Real screenshots of the built-in admin.</p>
+      <h2>A control panel in your browser</h2>
+      <p>Users, vaults, sharing, devices, history and backups. These are real screenshots.</p>
     </div>
-    <div class="tabs" role="tablist">
-      <button class="tab on" data-shot="admin-dashboard">Overview</button>
-      <button class="tab" data-shot="admin-files">Files</button>
-      <button class="tab" data-shot="admin-history">Version history</button>
-      <button class="tab" data-shot="admin-backups">Backups</button>
-      <button class="tab" data-shot="admin-newvault">New vault</button>
-      <button class="tab" data-shot="admin-devices">Devices</button>
+    <div class="tabs" role="tablist" data-shots>
+      <button class="tab on" role="tab" aria-selected="true" data-shot="admin-dashboard" data-caption="Overview: your vaults, their backup plans, devices online and disk usage.">Overview</button>
+      <button class="tab" role="tab" aria-selected="false" data-shot="admin-files" data-caption="Files: browse folders and preview notes and images in the browser.">Files</button>
+      <button class="tab" role="tab" aria-selected="false" data-shot="admin-history" data-caption="Version history: preview any earlier version of a note and restore it.">Version history</button>
+      <button class="tab" role="tab" aria-selected="false" data-shot="admin-backups" data-caption="Backups: back up now, download a ZIP, restore one file or the whole vault.">Backups</button>
+      <button class="tab" role="tab" aria-selected="false" data-shot="admin-newvault" data-caption="New vault: pick a name, backup frequency, how long to keep backups, and members.">New vault</button>
+      <button class="tab" role="tab" aria-selected="false" data-shot="admin-devices" data-caption="Devices: every Obsidian login. Logging one out removes its access immediately.">Devices</button>
     </div>
-    <div class="browser">
-      <div class="browser-bar"><i></i><i></i><i></i><div class="url">🔒 sync.example.com</div></div>
+    <div class="shot">
+      <div class="shot-bar"><div class="lights"><i></i><i></i><i></i></div><div class="url">sync.example.com</div></div>
       <img id="shot" src="assets/admin-dashboard.png" alt="SimpleSync web admin" width="2400" height="940">
     </div>
-    <div class="thumbs">
-      <figure><img src="assets/admin-history.png" alt="Version history"><figcaption>Preview and restore any version</figcaption></figure>
-      <figure><img src="assets/admin-backups.png" alt="Backups"><figcaption>Backups on your schedule</figcaption></figure>
-      <figure><img src="assets/admin-devices.png" alt="Devices"><figcaption>See and log out devices</figcaption></figure>
-    </div>
+    <p class="shot-caption" id="shotCaption">Overview: your vaults, their backup plans, devices online and disk usage.</p>
   </div>
 </section>
 
@@ -254,17 +282,20 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Install</span>
-      <h2>Pick where it runs</h2>
-    </div>
-    <div class="tabs" role="tablist">
-      <button class="tab on" data-pane="zima">ZimaOS / CasaOS</button>
-      <button class="tab" data-pane="vps">VPS with HTTPS</button>
-      <button class="tab" data-pane="docker">Docker</button>
+      <h2>Pick where the server runs</h2>
+      <p>Then open the server's address in a browser and create the administrator account right away.</p>
     </div>
 
-    <div class="pane on" id="pane-zima">
-      <p>App Store → <b>+</b> → <b>Install a customized app</b> → <b>YAML</b>, delete what's there and paste this. Then open <code>http://&lt;zimaos-ip&gt;:8080</code>.</p>
-      <div class="code"><button class="copy">Copy</button><pre><code>name: obsisync
+    <div class="panes">
+      <div class="tabs" role="tablist">
+        <button class="tab on" role="tab" aria-selected="true" data-pane="zima">ZimaOS / CasaOS</button>
+        <button class="tab" role="tab" aria-selected="false" data-pane="vps">VPS with HTTPS</button>
+        <button class="tab" role="tab" aria-selected="false" data-pane="docker">Docker</button>
+      </div>
+
+      <div class="pane" id="pane-zima">
+        <p><span class="path">App Store<span class="sep">›</span>+<span class="sep">›</span>Install a customized app<span class="sep">›</span>YAML</span>. Delete what's there, paste this, click Install and open <code>http://&lt;zimaos-ip&gt;:8080</code>.</p>
+        <div class="code"><button class="copy" type="button">Copy</button><pre class="tall"><code>name: obsisync
 services:
   obsisync:
     image: ghcr.io/jirkacepelka/obsisync:latest
@@ -294,60 +325,86 @@ x-casaos:
   index: /
   port_map: "8080"
   scheme: http</code></pre></div>
-    </div>
+      </div>
 
-    <div class="pane" id="pane-vps">
-      <p>Point a DNS A record (e.g. <code>sync.example.com</code>) at your VPS, then run this. Caddy gets the HTTPS certificate automatically.</p>
-      <div class="code"><button class="copy">Copy</button><pre><code>mkdir simplesync && cd simplesync
+      <div class="pane" id="pane-vps" hidden>
+        <p>Point a DNS A record such as <code>sync.example.com</code> at the VPS, then run this. Caddy gets the HTTPS certificate by itself. A 1 GB RAM VPS is enough.</p>
+        <div class="code"><button class="copy" type="button">Copy</button><pre><code>mkdir simplesync &amp;&amp; cd simplesync
 curl -O https://raw.githubusercontent.com/jirkacepelka/SimpleSync/main/deploy/docker-compose.caddy.yml
 DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code></pre></div>
-    </div>
+      </div>
 
-    <div class="pane" id="pane-docker">
-      <p>Anything with Docker – a NAS, a Raspberry Pi, a home server:</p>
-      <div class="code"><button class="copy">Copy</button><pre><code>docker run -d --name obsisync -p 8080:8080 -e TZ=Europe/Prague \
+      <div class="pane" id="pane-docker" hidden>
+        <p>Anything with Docker: a NAS, a Raspberry Pi, a home server.</p>
+        <div class="code"><button class="copy" type="button">Copy</button><pre><code>docker run -d --name obsisync -p 8080:8080 -e TZ=Europe/Prague \
   -v $PWD/data:/data --restart unless-stopped \
   ghcr.io/jirkacepelka/obsisync:latest</code></pre></div>
+      </div>
     </div>
 
-    <div class="then">
-      <div><b>Then in Obsidian:</b> install the <b>SimpleSync</b> plugin (from the server's <em>Plugin</em> page or via BRAT), enter address, name and password, pick a vault.</div>
+    <div class="plugin-card">
+      <img src="assets/icon.svg" alt="">
+      <div class="txt">
+        <h3>Then install SimpleSync in Obsidian</h3>
+        <p>Settings › Community plugins › Browse, search for “SimpleSync”, install and enable it.</p>
+      </div>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://community.obsidian.md/plugins/simplesync">Plugin page <svg class="icon"><use href="#i-external"/></svg></a>
+        <a class="btn btn-secondary" href="obsidian://show-plugin?id=simplesync">Open in Obsidian</a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ PRIVACY ============ -->
-<section class="section alt">
-  <div class="wrap privacy">
-    <div class="shield">🔒</div>
-    <div>
+<section class="section band" id="privacy">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Privacy</span>
       <h2>Your notes never leave your server</h2>
-      <p>The plugin talks only to the server address you enter – a server you run yourself. No telemetry, no third-party service, no account with anyone else. Your password is used once to get a device token and is never stored on the device. Use HTTPS (Caddy or Tailscale) to encrypt traffic in transit.</p>
-      <p>Login guessing is throttled per address and per account, passwords are hashed with Argon2id, and every request is authorized by the server – the plugin never decides who gets in.</p>
+    </div>
+    <div class="privacy-grid">
+      <div>
+        <svg class="icon"><use href="#i-ban"/></svg>
+        <h3>No third parties</h3>
+        <p>The plugin talks only to the server address you enter. No telemetry, no cloud service, no account with anyone else.</p>
+      </div>
+      <div>
+        <svg class="icon"><use href="#i-key"/></svg>
+        <h3>No stored passwords</h3>
+        <p>Your password is used once to get a device token. The server keeps only a hash of the token, and passwords are hashed with Argon2id.</p>
+      </div>
+      <div>
+        <svg class="icon"><use href="#i-lock"/></svg>
+        <h3>Checked on the server</h3>
+        <p>Every request is authorized by the server and login guessing is throttled per address and per account. Use HTTPS to encrypt traffic in transit.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ FAQ ============ -->
 <section class="section" id="faq">
-  <div class="wrap narrow">
-    <div class="section-head"><span class="eyebrow">FAQ</span><h2>Questions</h2></div>
-    <details><summary>Is it free?</summary><p>Yes. SimpleSync is open source under the MIT license. You only pay for the machine it runs on – often a box you already own.</p></details>
-    <details><summary>Does it replace Obsidian Sync?</summary><p>It covers the same job – keeping vaults in sync between devices – but runs on your own server. Obsidian Sync is a great paid service; SimpleSync is for people who want to self-host.</p></details>
-    <details><summary>What happens when I connect a new device?</summary><p>If the vault on the server has content, the server always wins: the device becomes an exact copy and nothing is uploaded from it. Anything that was only on the device is moved to Obsidian's trash, so nothing is lost. The plugin warns you before this happens. If you want to upload an existing vault, use “Create a new vault from this one”.</p></details>
-    <details><summary>Can I use it outside my home network?</summary><p>Yes. On a VPS you get HTTPS automatically. At home, the easiest way is Tailscale or a Cloudflare Tunnel.</p></details>
-    <details><summary>Is it end-to-end encrypted?</summary><p>No – the server can read the notes, which is what makes version previews and server-side backups possible. Since you run the server, that's you.</p></details>
-    <details><summary>How do I back up the server?</summary><p>Everything lives in one data folder. Copy it, or use the built-in scheduled backups with optional ZIP files.</p></details>
+  <div class="wrap">
+    <div class="section-head center"><span class="eyebrow">FAQ</span><h2>Questions</h2></div>
+    <div class="faq">
+      <details><summary>Is it free?</summary><p>Yes. SimpleSync is open source under the MIT license. You only pay for the machine it runs on, which is often a box you already own.</p></details>
+      <details><summary>Does it replace Obsidian Sync?</summary><p>It does the same job, keeping vaults in sync between devices, but on your own server. Obsidian Sync is a great paid service; SimpleSync is for people who want to self-host.</p></details>
+      <details><summary>What happens when I connect a new device?</summary><p>If the vault on the server has content, the server always wins: the device becomes an exact copy and nothing is uploaded from it. Files that were only on the device are moved to Obsidian's trash, so nothing is lost. The plugin warns you before this happens. To upload an existing vault, use “Create a new vault from this one”.</p></details>
+      <details><summary>Can I use it outside my home network?</summary><p>Yes. On a VPS you get HTTPS automatically. At home, the easiest way is Tailscale or a Cloudflare Tunnel. See <a class="link-accent" href="guide.html#outside">Reach it from anywhere</a>.</p></details>
+      <details><summary>Is it end-to-end encrypted?</summary><p>No. The server can read the notes, which is what makes version previews and server-side backups possible. Since you run the server, that's you.</p></details>
+      <details><summary>How do I back up the server?</summary><p>Everything lives in one data folder. Copy it, or use the built-in scheduled backups with optional ZIP files.</p></details>
+    </div>
   </div>
 </section>
 
 <section class="final">
-  <div class="wrap final-inner">
+  <div class="wrap">
     <h2>Own your sync.</h2>
-    <p>Set it up once, forget it's there.</p>
-    <div class="cta center">
-      <a class="btn btn-primary" href="#install">Get started</a>
-      <a class="btn btn-ghost" href="https://github.com/jirkacepelka/SimpleSync">Star on GitHub</a>
+    <p>Set it up once and forget it's there.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="https://community.obsidian.md/plugins/simplesync">Get the plugin <svg class="icon"><use href="#i-external"/></svg></a>
+      <a class="btn btn-secondary" href="guide.html">Read the setup guide</a>
     </div>
   </div>
 </section>
@@ -356,8 +413,14 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
 
 <footer class="foot">
   <div class="wrap foot-inner">
-    <span><img src="assets/icon.svg" alt=""> SimpleSync · MIT License</span>
-    <span>Not affiliated with Obsidian. Obsidian is a trademark of Dynalist Inc.</span>
+    <a class="logo" href="./"><img src="assets/icon.svg" alt=""> SimpleSync</a>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="guide.html">Setup guide</a>
+      <a href="https://community.obsidian.md/plugins/simplesync">Obsidian plugin</a>
+      <a href="https://github.com/jirkacepelka/SimpleSync">GitHub</a>
+      <a href="https://github.com/jirkacepelka/SimpleSync/blob/main/LICENSE">MIT License</a>
+    </nav>
+    <span class="foot-note">Not affiliated with Obsidian. Obsidian is a trademark of Dynalist Inc.</span>
   </div>
 </footer>
 
