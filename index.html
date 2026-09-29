@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SimpleSync – self-hosted sync for Obsidian</title>
-<meta name="description" content="Sync your Obsidian vaults through your own server. Enter address, name and password, pick a vault. Free and open source.">
+<meta name="description" content="Sync your Obsidian vaults through your own server. Enter address, name and password, pick a vault. Edit in the browser, let AI agents work with your notes. Free and open source.">
 <meta name="theme-color" content="#161616" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta property="og:title" content="SimpleSync – self-hosted sync for Obsidian">
@@ -70,7 +70,7 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="wrap">
-    <a class="kicker" href="https://community.obsidian.md/plugins/simplesync"><span class="dot"></span><b>Listed in Obsidian community plugins</b> · v0.3.5</a>
+    <a class="kicker" href="https://community.obsidian.md/plugins/simplesync"><span class="dot"></span><b>Listed in Obsidian community plugins</b> · v0.5.0</a>
     <h1>Obsidian sync on <em>your own server</em>.</h1>
     <p class="lead">SimpleSync is a small server and an Obsidian plugin. Enter the server address, your name and password, then pick a vault. Your notes stay on hardware you own: a ZimaOS box, a NAS or a €4 VPS.</p>
     <div class="cta">
@@ -207,6 +207,9 @@
       <div class="feature"><svg class="icon"><use href="#i-users"/></svg><h3>Sharing with roles</h3><p>Share a vault with family or a team as owner, editor or read only. Log out a lost phone instantly.</p></div>
       <div class="feature"><svg class="icon"><use href="#i-shield"/></svg><h3>The server wins on connect</h3><p>A new or empty device can never overwrite your vault. Local leftovers go to Obsidian's trash.</p></div>
       <div class="feature"><svg class="icon"><use href="#i-download"/></svg><h3>Ready-made vault download</h3><p>Download a vault from the web admin with the plugin already set up. Open it, type your password, done.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-book"/></svg><h3>Web editor</h3><p>Open a vault in the browser and edit notes without Obsidian. Changes sync to your devices in seconds.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-globe"/></svg><h3>Publish notes as a website</h3><p>Publish chosen notes or a whole folder at a public address. Everything else stays private.</p></div>
+      <div class="feature"><svg class="icon"><use href="#i-key"/></svg><h3>AI agents (MCP)</h3><p>Give Claude or another AI agent access to a vault, read-only or read-write, without a local folder. Revoke it any time.</p></div>
       <div class="feature"><svg class="icon"><use href="#i-package"/></svg><h3>Tiny footprint</h3><p>A ~27 MB image that uses a few tens of MB of RAM. Go and SQLite, on amd64 and arm64.</p></div>
       <div class="feature"><svg class="icon"><use href="#i-globe"/></svg><h3>Eight languages</h3><p>English, Čeština, Slovenčina, Deutsch, Français, Español, Italiano and Polski.</p></div>
     </div>
@@ -259,7 +262,7 @@
     <div class="section-head">
       <span class="eyebrow">Web admin</span>
       <h2>A control panel in your browser</h2>
-      <p>Users, vaults, sharing, devices, history and backups. These are real screenshots.</p>
+      <p>Users, vaults, sharing, devices, AI agents, history and backups. These are real screenshots.</p>
     </div>
     <div class="tabs" role="tablist" data-shots>
       <button class="tab on" role="tab" aria-selected="true" data-shot="admin-dashboard" data-caption="Overview: your vaults, their backup plans, devices online and disk usage.">Overview</button>
@@ -267,7 +270,7 @@
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-history" data-caption="Version history: preview any earlier version of a note and restore it.">Version history</button>
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-backups" data-caption="Backups: back up now, download a ZIP, restore one file or the whole vault.">Backups</button>
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-newvault" data-caption="New vault: pick a name, backup frequency, how long to keep backups, and members.">New vault</button>
-      <button class="tab" role="tab" aria-selected="false" data-shot="admin-devices" data-caption="Devices: every Obsidian login. Logging one out removes its access immediately.">Devices</button>
+      <button class="tab" role="tab" aria-selected="false" data-shot="admin-devices" data-caption="Devices: every Obsidian login and the vault it uses. Logging one out removes its access immediately.">Devices</button>
     </div>
     <div class="shot">
       <div class="shot-bar"><div class="lights"><i></i><i></i><i></i></div><div class="url">sync.example.com</div></div>
@@ -392,6 +395,7 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
       <details><summary>Does it replace Obsidian Sync?</summary><p>It does the same job, keeping vaults in sync between devices, but on your own server. Obsidian Sync is a great paid service; SimpleSync is for people who want to self-host.</p></details>
       <details><summary>What happens when I connect a new device?</summary><p>If the vault on the server has content, the server always wins: the device becomes an exact copy and nothing is uploaded from it. Files that were only on the device are moved to Obsidian's trash, so nothing is lost. The plugin warns you before this happens. To upload an existing vault, use “Create a new vault from this one”.</p></details>
       <details><summary>Can I use it outside my home network?</summary><p>Yes. On a VPS you get HTTPS automatically. At home, the easiest way is Tailscale or a Cloudflare Tunnel. See <a class="link-accent" href="guide.html#outside">Reach it from anywhere</a>.</p></details>
+      <details><summary>Can an AI agent use my notes?</summary><p>Yes, if you allow it. The server is also an MCP server, so Claude and other AI agents can read, search, create and edit notes without a local folder, for example from scheduled tasks. You choose the vaults and whether access is read-only, and you can revoke it at any time. See <a class="link-accent" href="guide.html#agents">AI agents</a>.</p></details>
       <details><summary>Is it end-to-end encrypted?</summary><p>No. The server can read the notes, which is what makes version previews and server-side backups possible. Since you run the server, that's you.</p></details>
       <details><summary>How do I back up the server?</summary><p>Everything lives in one data folder. Copy it, or use the built-in scheduled backups with optional ZIP files.</p></details>
     </div>

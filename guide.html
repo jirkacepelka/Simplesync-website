@@ -79,6 +79,7 @@
       <li><a href="#daily">Everyday use</a></li>
       <li><a href="#sharing">Sharing a vault</a></li>
       <li><a href="#restore">History, trash and backups</a></li>
+      <li><a href="#agents">AI agents (MCP)</a></li>
       <li><a href="#devices">Lost a device?</a></li>
       <li><a href="#update">Updating</a></li>
       <li><a href="#trouble">Troubleshooting</a></li>
@@ -307,8 +308,20 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
     <p>In the vault's <b>Backups</b> tab you can click <b>Back up now</b>, download a backup as ZIP, restore a single file, or restore the <b>whole vault</b>. Restoring the whole vault first saves the current state as a “Before restore” backup, then sends the changes to every device like a normal sync.</p>
     <p>Backups store identical files only once, so they take very little space. A scheduled backup is skipped when nothing changed, and the newest backup is never deleted.</p>
 
+    <h2 id="agents">AI agents (MCP)</h2>
+    <p>The server is also an MCP server at <code>/mcp</code>. An AI agent such as Claude can list, read, search, create, edit, append to, move and delete notes in a vault without any local folder, including from scheduled tasks. Changes sync to your devices like any other edit and are kept in the version history.</p>
+    <ul>
+      <li><b>Claude</b>: add a custom connector with the address <code>https://sync.example.com/mcp</code>. You sign in and approve access on a consent page.</li>
+      <li><b>Other agents</b>: create a token on the <b>AI agents</b> page in the web admin and give it to the agent.</li>
+    </ul>
+    <p>Access is per vault or for all your vaults, read-only or read-write, and never more than your own role allows. You can revoke it at any time on the <b>AI agents</b> page.</p>
+    <div class="callout">
+      <div class="callout-title"><svg class="icon"><use href="#i-info"/></svg>Needs to be reachable</div>
+      <p>The agent connects from the internet, so the server needs an HTTPS address that it can reach. See <a href="#outside">Reach it from anywhere</a>.</p>
+    </div>
+
     <h2 id="devices">Lost a device?</h2>
-    <p>Open <b>Devices</b> in the web admin. Every Obsidian login is listed there; click log out next to the lost one and it loses access immediately. Its password was never stored on the device, only a token that no longer works.</p>
+    <p>Open <b>Devices</b> in the web admin. Every Obsidian login is listed there, with the vault it uses; click log out next to the lost one and it loses access immediately. Its password was never stored on the device, only a token that no longer works.</p>
 
     <h2 id="update">Updating</h2>
     <ul>
