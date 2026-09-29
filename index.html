@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SimpleSync – self-hosted sync for Obsidian</title>
-<meta name="description" content="Sync your Obsidian vaults through your own server. Enter address, name and password, pick a vault. Edit in the browser, let AI agents work with your notes. Free and open source.">
-<meta name="theme-color" content="#161616" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Sync your Obsidian vaults through your own server. Enter address, name and password, pick a vault. Free and open source.">
+<meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta property="og:title" content="SimpleSync – self-hosted sync for Obsidian">
 <meta property="og:description" content="Your notes, your server, three fields. Runs on ZimaOS, a NAS or a cheap VPS.">
@@ -45,14 +45,18 @@
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
   <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
+  <symbol id="i-tablet" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
 </svg>
 
 <header class="nav">
-  <div class="wrap nav-inner">
+  <div class="nav-inner">
     <a class="logo" href="./"><img src="assets/icon.svg" alt=""> SimpleSync</a>
     <nav class="nav-links" aria-label="Main">
       <a href="#how">How it works</a>
       <a href="#features">Features</a>
+      <a href="#editor">Editor</a>
+      <a href="#publish">Publishing</a>
       <a href="#admin">Web admin</a>
       <a href="#install">Install</a>
       <a href="guide.html">Guide</a>
@@ -69,77 +73,58 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="wrap">
-    <a class="kicker" href="https://community.obsidian.md/plugins/simplesync"><span class="dot"></span><b>Listed in Obsidian community plugins</b> · v0.5.0</a>
-    <h1>Obsidian sync on <em>your own server</em>.</h1>
-    <p class="lead">SimpleSync is a small server and an Obsidian plugin. Enter the server address, your name and password, then pick a vault. Your notes stay on hardware you own: a ZimaOS box, a NAS or a €4 VPS.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="https://community.obsidian.md/plugins/simplesync">Get the plugin <svg class="icon"><use href="#i-external"/></svg></a>
-      <a class="btn btn-secondary" href="guide.html">Read the setup guide</a>
+  <div class="wrap hero-grid">
+    <div>
+      <a class="kicker" href="guide.html#agents"><span class="dot"></span><b>New in 0.5: AI agents (MCP)</b> · v0.5.0</a>
+      <h1>Sync your vault <span class="soft">through a server</span> <span class="accent">you own.</span></h1>
+      <p class="lead">SimpleSync is a small server and an Obsidian plugin. Enter the server address, your name and password, then pick a vault. Your notes live on a ZimaOS box, a NAS or a €4 VPS, and nowhere else.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://community.obsidian.md/plugins/simplesync">Get the plugin <svg class="icon"><use href="#i-external"/></svg></a>
+        <a class="btn btn-secondary" href="guide.html">Setup guide</a>
+      </div>
+      <ul class="hero-points">
+        <li><svg class="icon"><use href="#i-check"/></svg>Free and open source</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Desktop, iPhone, iPad, Android</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Edit in any browser</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>History and backups</li>
+      </ul>
     </div>
-    <p class="fineprint">Free and open source (MIT) · Desktop, iPhone, iPad and Android</p>
 
-    <!-- Obsidian window + phone. The same note, synced. -->
-    <div class="stage" aria-hidden="true">
-      <div class="ob">
-        <div class="ob-top">
-          <div class="ob-lights"><i></i><i></i><i></i></div>
-          <div class="ob-tabs">
-            <div class="ob-tab on">Trip to Japan <span class="x">✕</span></div>
-            <div class="ob-tab">2026-09-26 <span class="x">✕</span></div>
-          </div>
-        </div>
-        <div class="ob-body">
-          <div class="ob-ribbon">
-            <svg class="icon"><use href="#i-folder"/></svg>
-            <svg class="icon"><use href="#i-search"/></svg>
-            <svg class="icon"><use href="#i-graph"/></svg>
-            <svg class="icon"><use href="#i-calendar"/></svg>
-          </div>
-          <div class="ob-files">
-            <div class="ob-vault">Personal</div>
-            <div class="dir">Daily</div>
-            <div class="in">2026-09-25</div>
-            <div class="in">2026-09-26</div>
-            <div class="dir">Projects</div>
-            <div class="in">Garden beds</div>
-            <div class="in">Home server</div>
-            <div class="in sel">Trip to Japan</div>
-            <div class="dir">Recipes</div>
-            <div>Reading list</div>
-            <div>Inbox</div>
-          </div>
-          <div class="ob-editor">
-            <h4>Trip to Japan</h4>
-            <h5>Plan</h5>
-            <div class="li">Tokyo: 3 days, Shibuya and Asakusa</div>
-            <div class="li">Kyoto: 2 days, <span class="link">Fushimi Inari</span> at sunrise</div>
-            <div class="li">Osaka: 1 day of street food</div>
-            <div class="li typing" id="typeLine"><span id="typeText">Nara: deer park, half a day</span><span class="caret"></span></div>
-            <h5>Packing</h5>
-            <div class="task done">Passport</div>
-            <div class="task">JR Pass</div>
-            <div class="task">Power adapter (type A)</div>
-          </div>
-        </div>
-        <div class="ob-status"><span>2 backlinks</span><span>61 words</span><span class="sync" id="syncState">✓ SimpleSync</span></div>
+    <!-- The sync network: devices talk only to your server. -->
+    <div class="net" id="net" aria-label="Four devices syncing through one SimpleSync server">
+      <svg class="wires" viewBox="0 0 600 500" aria-hidden="true">
+        <path class="wire" d="M105 70 C 105 170, 300 150, 300 250"/>
+        <path class="wire" d="M500 95 C 500 190, 300 150, 300 250"/>
+        <path class="wire" d="M95 420 C 95 330, 300 350, 300 250"/>
+        <path class="wire" d="M500 410 C 500 330, 300 350, 300 250"/>
+        <path class="pulse" data-for="mac" d="M105 70 C 105 170, 300 150, 300 250"/>
+        <path class="pulse" data-for="iphone" d="M500 95 C 500 190, 300 150, 300 250"/>
+        <path class="pulse" data-for="ipad" d="M95 420 C 95 330, 300 350, 300 250"/>
+        <path class="pulse" data-for="pc" d="M500 410 C 500 330, 300 350, 300 250"/>
+      </svg>
+
+      <div class="node" data-dev="mac" style="left:17.5%;top:14%">
+        <div class="node-head"><svg class="icon"><use href="#i-laptop"/></svg>MacBook</div>
+        <div class="node-status">synced · rev 1285</div>
+      </div>
+      <div class="node" data-dev="iphone" style="left:83.3%;top:19%">
+        <div class="node-head"><svg class="icon"><use href="#i-phone"/></svg>iPhone</div>
+        <div class="node-status">synced · rev 1285</div>
+      </div>
+      <div class="node" data-dev="ipad" style="left:15.8%;top:84%">
+        <div class="node-head"><svg class="icon"><use href="#i-tablet"/></svg>iPad</div>
+        <div class="node-status">synced · rev 1285</div>
+      </div>
+      <div class="node" data-dev="pc" style="left:83.3%;top:82%">
+        <div class="node-head"><svg class="icon"><use href="#i-monitor"/></svg>Work PC</div>
+        <div class="node-status">synced · rev 1285</div>
       </div>
 
-      <div class="phone">
-        <div class="phone-screen">
-          <div class="phone-bar"><span>9:41</span><span>5G ▮</span></div>
-          <div class="phone-head"><span>‹ Projects</span><span>Personal</span></div>
-          <div class="phone-body">
-            <h4>Trip to Japan</h4>
-            <h5>Plan</h5>
-            <div class="li">Tokyo: 3 days, Shibuya and Asakusa</div>
-            <div class="li">Kyoto: 2 days, Fushimi Inari at sunrise</div>
-            <div class="li">Osaka: 1 day of street food</div>
-            <div class="li fresh" id="phoneLine">Nara: deer park, half a day</div>
-            <h5>Packing</h5>
-          </div>
-          <div class="phone-toast"><b>✓</b> <span id="phoneToast">Synced just now</span></div>
-        </div>
+      <div class="node server" style="left:50%;top:50%">
+        <div class="node-head"><img src="assets/icon.svg" alt="">Your server</div>
+        <div class="server-host">sync.example.com</div>
+        <div class="server-rev"><span class="lbl">rev</span><span class="num" id="rev">1285</span></div>
+        <div class="server-meta">3 vaults · 4 devices online</div>
       </div>
     </div>
   </div>
@@ -156,22 +141,24 @@
 <section class="section" id="how">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">How it works</span>
-      <h2>From zero to synced in three steps</h2>
-      <p>No config files, no database to set up, no cloud accounts. The <a class="link-accent" href="guide.html">setup guide</a> walks through each step.</p>
+      <div>
+        <span class="eyebrow">How it works</span>
+        <h2>Three steps, then forget it's there</h2>
+      </div>
+      <p>No config files, no database to set up, no cloud account. The <a class="link-accent" href="guide.html">setup guide</a> walks through each step with screenshots.</p>
     </div>
     <div class="steps">
       <article class="step">
-        <span class="step-n">1 / Server</span>
+        <span class="step-n">1</span>
         <h3>Start the server</h3>
-        <p>One Docker container. Paste a YAML into ZimaOS or run one command on a VPS, open the web page and create your admin account.</p>
+        <p>One Docker container. Paste a YAML into ZimaOS or run one command, then create your admin account.</p>
         <div class="demo"><div class="term"><span class="d">$</span> docker run -p 8080:8080 \
     ghcr.io/jirkacepelka/obsisync</div></div>
       </article>
       <article class="step">
-        <span class="step-n">2 / Plugin</span>
-        <h3>Install the plugin and log in</h3>
-        <p>Install SimpleSync from Obsidian's community plugins, then fill in three fields. Nothing else to configure.</p>
+        <span class="step-n">2</span>
+        <h3>Install the plugin, log in</h3>
+        <p>Install SimpleSync from Obsidian's community plugins and fill in three fields.</p>
         <div class="demo fields">
           <label>Server address <span>sync.example.com</span></label>
           <label>Name <span>jirka</span></label>
@@ -179,9 +166,9 @@
         </div>
       </article>
       <article class="step">
-        <span class="step-n">3 / Vault</span>
+        <span class="step-n">3</span>
         <h3>Pick a vault</h3>
-        <p>The plugin lists the vaults your account can use. Pick one and click Connect. Every device you connect stays in sync.</p>
+        <p>Choose a vault from the list and click Connect. Every device you connect stays in sync.</p>
         <div class="demo picker">
           <div class="on"><i></i>Personal <em>owner</em></div>
           <div><i></i>Work <em>editor</em></div>
@@ -193,25 +180,110 @@
 </section>
 
 <!-- ============ FEATURES ============ -->
-<section class="section band" id="features">
+<section class="section" id="features">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Features</span>
-      <h2>Everything you need, nothing to tune</h2>
+      <div>
+        <span class="eyebrow">Features</span>
+        <h2>Everything you need, nothing to tune</h2>
+      </div>
+      <p>Built for a household or a small team: one server, a few vaults, every device you own.</p>
     </div>
-    <div class="features">
-      <div class="feature"><svg class="icon"><use href="#i-zap"/></svg><h3>Changes arrive in seconds</h3><p>The server announces new changes over a WebSocket and devices fetch only what's new.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-merge"/></svg><h3>Conflicts merged line by line</h3><p>Edits to different parts of a note are combined. When they overlap, both versions are kept.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-history"/></svg><h3>Version history</h3><p>Every change is kept. Preview any old version in the browser and restore it with one click.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-archive"/></svg><h3>Scheduled backups</h3><p>Per vault: every hour, 6 hours, day or week. Keep them from 7 days to forever, optionally as ZIP files.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-users"/></svg><h3>Sharing with roles</h3><p>Share a vault with family or a team as owner, editor or read only. Log out a lost phone instantly.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-shield"/></svg><h3>The server wins on connect</h3><p>A new or empty device can never overwrite your vault. Local leftovers go to Obsidian's trash.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-download"/></svg><h3>Ready-made vault download</h3><p>Download a vault from the web admin with the plugin already set up. Open it, type your password, done.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-book"/></svg><h3>Web editor</h3><p>Open a vault in the browser and edit notes without Obsidian. Changes sync to your devices in seconds.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-globe"/></svg><h3>Publish notes as a website</h3><p>Publish chosen notes or a whole folder at a public address. Everything else stays private.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-key"/></svg><h3>AI agents (MCP)</h3><p>Give Claude or another AI agent access to a vault, read-only or read-write, without a local folder. Revoke it any time.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-package"/></svg><h3>Tiny footprint</h3><p>A ~27 MB image that uses a few tens of MB of RAM. Go and SQLite, on amd64 and arm64.</p></div>
-      <div class="feature"><svg class="icon"><use href="#i-globe"/></svg><h3>Eight languages</h3><p>English, Čeština, Slovenčina, Deutsch, Français, Español, Italiano and Polski.</p></div>
+    <div class="bento">
+      <article class="tile t-sync">
+        <h3>Changes arrive in seconds</h3>
+        <p>Every change gets the next revision number. The server announces it over a WebSocket, and each device fetches only what it hasn't seen yet.</p>
+        <div class="viz log" aria-label="Recent changes">
+          <div class="log-row new"><span class="r">rev 1285</span><span class="d">iPhone</span><span class="f">Groceries.md</span><span class="t">now</span></div>
+          <div class="log-row"><span class="r">rev 1284</span><span class="d">MacBook</span><span class="f">Garden plan.md</span><span class="t">12 s</span></div>
+          <div class="log-row"><span class="r">rev 1283</span><span class="d">iPad</span><span class="f">Reading/Reading list.md</span><span class="t">4 min</span></div>
+          <div class="log-row"><span class="r">rev 1282</span><span class="d">Work PC</span><span class="f">Meetings/2026-09-26.md</span><span class="t">21 min</span></div>
+          <div class="log-row"><span class="r">rev 1281</span><span class="d">MacBook</span><span class="f">Daily/2026-09-26.md</span><span class="t">1 h</span></div>
+        </div>
+      </article>
+      <article class="tile t-hist">
+        <h3>Version history</h3>
+        <p>Preview any earlier version in the browser and restore it.</p>
+        <div class="viz">
+          <div class="timeline"><i></i><i></i><i class="sel"></i><i></i><i></i></div>
+          <div class="timeline-lbl"><span>Mon</span><span>restore</span><span>now</span></div>
+        </div>
+      </article>
+      <article class="tile t-back">
+        <h3>Scheduled backups</h3>
+        <p>Per vault, kept as long as you choose.</p>
+        <div class="viz chips">
+          <span class="chip">hourly</span><span class="chip">6 h</span><span class="chip on">daily</span><span class="chip">weekly</span>
+          <span class="chip">keep 7 d</span><span class="chip on">keep 30 d</span><span class="chip">forever</span>
+        </div>
+      </article>
+      <article class="tile t-role">
+        <h3>Sharing with roles</h3>
+        <p>Share a vault with family or a team.</p>
+        <div class="viz chips"><span class="chip on">owner</span><span class="chip">editor</span><span class="chip">read only</span></div>
+      </article>
+      <article class="tile t-wins">
+        <h3>Server wins on connect</h3>
+        <p>An empty new device can never overwrite your vault.</p>
+        <div class="viz flow"><span>local leftovers</span><svg class="icon"><use href="#i-arrow"/></svg><span>.trash</span></div>
+      </article>
+      <article class="tile t-ready">
+        <h3>Ready-made vault</h3>
+        <p>Download a vault with the plugin already set up. Open it, type your password.</p>
+        <div class="viz flow"><span>Personal.zip</span></div>
+      </article>
+      <article class="tile t-size">
+        <div class="big">27<small>MB</small></div>
+        <h3>Tiny footprint</h3>
+        <p>Go and SQLite, tens of MB of RAM, amd64 and arm64.</p>
+      </article>
+      <article class="tile t-lang">
+        <h3>Speaks eight languages</h3>
+        <p>The plugin and the web admin: English, Čeština, Slovenčina, Deutsch, Français, Español, Italiano and Polski.</p>
+        <div class="viz langs"><span>EN</span><span>CS</span><span>SK</span><span>DE</span><span>FR</span><span>ES</span><span>IT</span><span>PL</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WEB EDITOR ============ -->
+<section class="section" id="editor">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Web editor</span>
+        <h2>No Obsidian at hand? Write in the browser.</h2>
+      </div>
+      <p>Every vault opens in a full editor on your server. On a work computer, a borrowed laptop or a phone without the app, and for people who never installed Obsidian at all.</p>
+    </div>
+    <div class="shot">
+      <img src="assets/editor.png" alt="The SimpleSync web editor: file tree, Markdown source and live preview side by side" width="2400" height="1480" loading="lazy">
+    </div>
+    <div class="editor-points">
+      <div><h3>Saved as you type</h3><p>Changes reach Obsidian on every device within seconds, through the same sync as the plugin. Concurrent edits are merged line by line.</p></div>
+      <div><h3>Obsidian syntax</h3><p>Live preview of <code>[[wikilinks]]</code>, embedded images, callouts, highlights, tags, tasks, tables and properties.</p></div>
+      <div><h3>Files, not just text</h3><p>Create, rename and delete notes and folders. Paste or drop images, type <code>[[</code> to link a note.</p></div>
+      <div><h3>Roles respected</h3><p>Owners and editors can write. Read-only members get a clean reading view.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLISHING ============ -->
+<section class="section" id="publish">
+  <div class="wrap split">
+    <div class="shot">
+      <img src="assets/published.png" alt="A published note on a public SimpleSync site" width="2400" height="1480" loading="lazy">
+    </div>
+    <div>
+      <span class="eyebrow">Publishing</span>
+      <h2>Turn notes into a website</h2>
+      <p>Mark a note with <code>publish: true</code>, or publish a whole folder, and it appears on a public site served by your own server. Anyone with the address can read it, no account needed.</p>
+      <div class="url-chip"><svg class="icon"><use href="#i-globe"/></svg><span>sync.example.com/p/<b>garden</b>/</span></div>
+      <ul class="checks">
+        <li><svg class="icon"><use href="#i-check"/></svg>Navigation, front page and Obsidian-style rendering</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Links to private notes stay plain text, names never leak</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Images are public only when a published note uses them</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -222,7 +294,7 @@
     <div>
       <span class="eyebrow">Conflicts</span>
       <h2>Edited on two devices at once? Nothing is lost.</h2>
-      <p>Every write is checked against the version the device last saw. If another device got there first, SimpleSync runs a three-way merge and changes on different lines simply combine. If the same line changed on both sides, the server version stays and yours is saved next to it as <code>Trip to Japan (conflict 2026-09-26 1530 jirka).md</code>.</p>
+      <p>Every write is checked against the version the device last saw. If another device got there first, SimpleSync runs a three-way merge, and changes on different lines simply combine. If the same line changed on both sides, the server version stays and yours is saved next to it as <code>Groceries (conflict 2026-09-26 1530 jirka).md</code>.</p>
       <ul class="checks">
         <li><svg class="icon"><use href="#i-check"/></svg>An edit always beats a delete</li>
         <li><svg class="icon"><use href="#i-check"/></svg>Unicode file names work across macOS, Windows and Linux</li>
@@ -232,49 +304,50 @@
     <div class="merge" aria-label="Example of a three-way merge">
       <div class="merge-row">
         <div class="doc">
-          <div class="doc-head"><svg class="icon"><use href="#i-laptop"/></svg>MacBook</div>
-          <div class="ln">Tokyo: 3 days</div>
-          <div class="ln add">Kyoto: 2 days</div>
-          <div class="ln">Osaka: 1 day</div>
+          <div class="doc-head"><svg class="icon"><use href="#i-laptop"/></svg>MacBook<span class="rev">base 1280</span></div>
+          <div class="ln">Oat milk</div>
+          <div class="ln add">Lemons</div>
+          <div class="ln">Coffee beans</div>
         </div>
         <div class="doc">
-          <div class="doc-head"><svg class="icon"><use href="#i-phone"/></svg>iPhone</div>
-          <div class="ln">Tokyo: 3 days</div>
-          <div class="ln">Osaka: 1 day</div>
-          <div class="ln add">Nara: deer park</div>
+          <div class="doc-head"><svg class="icon"><use href="#i-phone"/></svg>iPhone<span class="rev">base 1280</span></div>
+          <div class="ln">Oat milk</div>
+          <div class="ln">Coffee beans</div>
+          <div class="ln add">Fresh basil</div>
         </div>
       </div>
       <div class="merge-arrow">three-way merge</div>
       <div class="doc result">
-        <div class="doc-head"><svg class="icon"><use href="#i-check"/></svg>On every device</div>
-        <div class="ln">Tokyo: 3 days</div>
-        <div class="ln add">Kyoto: 2 days</div>
-        <div class="ln">Osaka: 1 day</div>
-        <div class="ln add">Nara: deer park</div>
+        <div class="doc-head"><svg class="icon"><use href="#i-check"/></svg>Groceries.md on every device<span class="rev">rev 1281</span></div>
+        <div class="ln">Oat milk</div>
+        <div class="ln add">Lemons</div>
+        <div class="ln">Coffee beans</div>
+        <div class="ln add">Fresh basil</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ WEB ADMIN ============ -->
-<section class="section band" id="admin">
+<section class="section" id="admin">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Web admin</span>
-      <h2>A control panel in your browser</h2>
+      <div>
+        <span class="eyebrow">Web admin</span>
+        <h2>A control panel in your browser</h2>
+      </div>
       <p>Users, vaults, sharing, devices, AI agents, history and backups. These are real screenshots.</p>
     </div>
-    <div class="tabs" role="tablist" data-shots>
+    <div class="seg" role="tablist">
       <button class="tab on" role="tab" aria-selected="true" data-shot="admin-dashboard" data-caption="Overview: your vaults, their backup plans, devices online and disk usage.">Overview</button>
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-files" data-caption="Files: browse folders and preview notes and images in the browser.">Files</button>
-      <button class="tab" role="tab" aria-selected="false" data-shot="admin-history" data-caption="Version history: preview any earlier version of a note and restore it.">Version history</button>
+      <button class="tab" role="tab" aria-selected="false" data-shot="admin-history" data-caption="Version history: see who changed a note from which device, and restore any version.">History</button>
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-backups" data-caption="Backups: back up now, download a ZIP, restore one file or the whole vault.">Backups</button>
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-newvault" data-caption="New vault: pick a name, backup frequency, how long to keep backups, and members.">New vault</button>
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-devices" data-caption="Devices: every Obsidian login and the vault it uses. Logging one out removes its access immediately.">Devices</button>
     </div>
     <div class="shot">
-      <div class="shot-bar"><div class="lights"><i></i><i></i><i></i></div><div class="url">sync.example.com</div></div>
-      <img id="shot" src="assets/admin-dashboard.png" alt="SimpleSync web admin" width="2400" height="940">
+      <img id="shot" src="assets/admin-dashboard.png" alt="Overview" width="2400" height="1120">
     </div>
     <p class="shot-caption" id="shotCaption">Overview: your vaults, their backup plans, devices online and disk usage.</p>
   </div>
@@ -284,21 +357,24 @@
 <section class="section" id="install">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Install</span>
-      <h2>Pick where the server runs</h2>
-      <p>Then open the server's address in a browser and create the administrator account right away.</p>
+      <div>
+        <span class="eyebrow">Install</span>
+        <h2>Two minutes on any machine with Docker</h2>
+      </div>
+      <p>Start the server where it suits you, open its address in a browser and create the administrator account right away.</p>
     </div>
 
-    <div class="panes">
-      <div class="tabs" role="tablist">
-        <button class="tab on" role="tab" aria-selected="true" data-pane="zima">ZimaOS / CasaOS</button>
-        <button class="tab" role="tab" aria-selected="false" data-pane="vps">VPS with HTTPS</button>
-        <button class="tab" role="tab" aria-selected="false" data-pane="docker">Docker</button>
-      </div>
+    <div class="install">
+      <div class="panes">
+        <div class="seg" role="tablist">
+          <button class="tab on" role="tab" aria-selected="true" data-pane="zima">ZimaOS / CasaOS</button>
+          <button class="tab" role="tab" aria-selected="false" data-pane="vps">VPS with HTTPS</button>
+          <button class="tab" role="tab" aria-selected="false" data-pane="docker">Docker</button>
+        </div>
 
-      <div class="pane" id="pane-zima">
-        <p><span class="path">App Store<span class="sep">›</span>+<span class="sep">›</span>Install a customized app<span class="sep">›</span>YAML</span>. Delete what's there, paste this, click Install and open <code>http://&lt;zimaos-ip&gt;:8080</code>.</p>
-        <div class="code"><button class="copy" type="button">Copy</button><pre class="tall"><code>name: obsisync
+        <div class="pane" id="pane-zima">
+          <p><span class="path">App Store<span class="sep">›</span>+<span class="sep">›</span>Install a customized app<span class="sep">›</span>YAML</span>. Delete what's there, paste this, click Install and open <code>http://&lt;zimaos-ip&gt;:8080</code>.</p>
+          <div class="code"><button class="copy" type="button">Copy</button><pre class="tall"><code>name: obsisync
 services:
   obsisync:
     image: ghcr.io/jirkacepelka/obsisync:latest
@@ -328,43 +404,51 @@ x-casaos:
   index: /
   port_map: "8080"
   scheme: http</code></pre></div>
-      </div>
+        </div>
 
-      <div class="pane" id="pane-vps" hidden>
-        <p>Point a DNS A record such as <code>sync.example.com</code> at the VPS, then run this. Caddy gets the HTTPS certificate by itself. A 1 GB RAM VPS is enough.</p>
-        <div class="code"><button class="copy" type="button">Copy</button><pre><code>mkdir simplesync &amp;&amp; cd simplesync
+        <div class="pane" id="pane-vps" hidden>
+          <p>Point a DNS A record such as <code>sync.example.com</code> at the VPS, then run this. Caddy gets the HTTPS certificate by itself. A 1 GB RAM VPS is enough.</p>
+          <div class="code"><button class="copy" type="button">Copy</button><pre><code>mkdir simplesync &amp;&amp; cd simplesync
 curl -O https://raw.githubusercontent.com/jirkacepelka/SimpleSync/main/deploy/docker-compose.caddy.yml
 DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code></pre></div>
-      </div>
+        </div>
 
-      <div class="pane" id="pane-docker" hidden>
-        <p>Anything with Docker: a NAS, a Raspberry Pi, a home server.</p>
-        <div class="code"><button class="copy" type="button">Copy</button><pre><code>docker run -d --name obsisync -p 8080:8080 -e TZ=Europe/Prague \
+        <div class="pane" id="pane-docker" hidden>
+          <p>Anything with Docker: a NAS, a Raspberry Pi, a home server.</p>
+          <div class="code"><button class="copy" type="button">Copy</button><pre><code>docker run -d --name obsisync -p 8080:8080 -e TZ=Europe/Prague \
   -v $PWD/data:/data --restart unless-stopped \
   ghcr.io/jirkacepelka/obsisync:latest</code></pre></div>
+        </div>
       </div>
-    </div>
 
-    <div class="plugin-card">
-      <img src="assets/icon.svg" alt="">
-      <div class="txt">
-        <h3>Then install SimpleSync in Obsidian</h3>
-        <p>Settings › Community plugins › Browse, search for “SimpleSync”, install and enable it.</p>
-      </div>
-      <div class="cta">
-        <a class="btn btn-primary" href="https://community.obsidian.md/plugins/simplesync">Plugin page <svg class="icon"><use href="#i-external"/></svg></a>
-        <a class="btn btn-secondary" href="obsidian://show-plugin?id=simplesync">Open in Obsidian</a>
-      </div>
+      <aside class="plugin-card">
+        <div class="top">
+          <img src="assets/icon.svg" alt="">
+          <div><h3>SimpleSync plugin</h3><div class="by">Obsidian community plugin · desktop and mobile</div></div>
+        </div>
+        <ol>
+          <li>Open <b>Settings › Community plugins</b></li>
+          <li>Click <b>Browse</b> and search for <b>SimpleSync</b></li>
+          <li><b>Install</b>, <b>Enable</b>, then log in</li>
+        </ol>
+        <div class="cta">
+          <a class="btn btn-primary" href="https://community.obsidian.md/plugins/simplesync">Plugin page <svg class="icon"><use href="#i-external"/></svg></a>
+          <a class="btn btn-secondary" href="obsidian://show-plugin?id=simplesync">Open in Obsidian</a>
+        </div>
+      </aside>
     </div>
   </div>
 </section>
 
 <!-- ============ PRIVACY ============ -->
-<section class="section band" id="privacy">
+<section class="section" id="privacy">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Privacy</span>
-      <h2>Your notes never leave your server</h2>
+      <div>
+        <span class="eyebrow">Privacy</span>
+        <h2>Your notes never leave your server</h2>
+      </div>
+      <p>SimpleSync is not end-to-end encrypted. It doesn't need to be: the only one who can read the server is you.</p>
     </div>
     <div class="privacy-grid">
       <div>
@@ -388,13 +472,19 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
 
 <!-- ============ FAQ ============ -->
 <section class="section" id="faq">
-  <div class="wrap">
-    <div class="section-head center"><span class="eyebrow">FAQ</span><h2>Questions</h2></div>
+  <div class="wrap faq-grid">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions</h2>
+      <p>Anything else? Read the <a class="link-accent" href="guide.html">setup guide</a> or <a class="link-accent" href="https://github.com/jirkacepelka/SimpleSync/issues">open an issue</a>.</p>
+    </div>
     <div class="faq">
       <details><summary>Is it free?</summary><p>Yes. SimpleSync is open source under the MIT license. You only pay for the machine it runs on, which is often a box you already own.</p></details>
       <details><summary>Does it replace Obsidian Sync?</summary><p>It does the same job, keeping vaults in sync between devices, but on your own server. Obsidian Sync is a great paid service; SimpleSync is for people who want to self-host.</p></details>
       <details><summary>What happens when I connect a new device?</summary><p>If the vault on the server has content, the server always wins: the device becomes an exact copy and nothing is uploaded from it. Files that were only on the device are moved to Obsidian's trash, so nothing is lost. The plugin warns you before this happens. To upload an existing vault, use “Create a new vault from this one”.</p></details>
       <details><summary>Can I use it outside my home network?</summary><p>Yes. On a VPS you get HTTPS automatically. At home, the easiest way is Tailscale or a Cloudflare Tunnel. See <a class="link-accent" href="guide.html#outside">Reach it from anywhere</a>.</p></details>
+      <details><summary>Do I need Obsidian on every device?</summary><p>No. Every vault can be opened and edited in the browser, on the server's own web page. Changes show up in Obsidian on your other devices within seconds.</p></details>
+      <details><summary>Is anything public?</summary><p>Only what you publish. Publishing is off until a vault owner turns it on, and then only notes marked <code>publish: true</code> (or one chosen folder) are on the public site. Everything else needs a login.</p></details>
       <details><summary>Can an AI agent use my notes?</summary><p>Yes, if you allow it. The server is also an MCP server, so Claude and other AI agents can read, search, create and edit notes without a local folder, for example from scheduled tasks. You choose the vaults and whether access is read-only, and you can revoke it at any time. See <a class="link-accent" href="guide.html#agents">AI agents</a>.</p></details>
       <details><summary>Is it end-to-end encrypted?</summary><p>No. The server can read the notes, which is what makes version previews and server-side backups possible. Since you run the server, that's you.</p></details>
       <details><summary>How do I back up the server?</summary><p>Everything lives in one data folder. Copy it, or use the built-in scheduled backups with optional ZIP files.</p></details>
@@ -403,12 +493,14 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
 </section>
 
 <section class="final">
-  <div class="wrap">
-    <h2>Own your sync.</h2>
-    <p>Set it up once and forget it's there.</p>
+  <div class="wrap final-inner">
+    <div>
+      <h2>Own your sync.</h2>
+      <p>Set it up once and forget it's there.</p>
+    </div>
     <div class="cta">
       <a class="btn btn-primary" href="https://community.obsidian.md/plugins/simplesync">Get the plugin <svg class="icon"><use href="#i-external"/></svg></a>
-      <a class="btn btn-secondary" href="guide.html">Read the setup guide</a>
+      <a class="btn btn-secondary" href="guide.html">Setup guide</a>
     </div>
   </div>
 </section>
