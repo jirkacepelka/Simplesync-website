@@ -144,3 +144,17 @@ if (tocLinks.length) {
   document.addEventListener("scroll", update, { passive: true });
   update();
 }
+
+// Mobile menu.
+const navEl = document.querySelector(".nav");
+const navBtn = document.querySelector(".nav-toggle");
+if (navEl && navBtn) {
+  const setNav = (open) => {
+    navEl.classList.toggle("open", open);
+    navBtn.setAttribute("aria-expanded", String(open));
+  };
+  navBtn.addEventListener("click", () => setNav(!navEl.classList.contains("open")));
+  navEl.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", () => setNav(false)));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setNav(false); });
+  document.addEventListener("click", (e) => { if (!navEl.contains(e.target)) setNav(false); });
+}
