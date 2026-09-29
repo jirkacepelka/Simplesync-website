@@ -75,7 +75,7 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <a class="kicker" href="#editor"><span class="dot"></span><b>New in 0.4: web editor and publishing</b></a>
+      <a class="kicker" href="guide.html#agents"><span class="dot"></span><b>New in 0.5: AI agents (MCP)</b> · v0.5.0</a>
       <h1>Sync your vault <span class="soft">through a server</span> <span class="accent">you own.</span></h1>
       <p class="lead">SimpleSync is a small server and an Obsidian plugin. Enter the server address, your name and password, then pick a vault. Your notes live on a ZimaOS box, a NAS or a €4 VPS, and nowhere else.</p>
       <div class="cta">
@@ -336,7 +336,7 @@
         <span class="eyebrow">Web admin</span>
         <h2>A control panel in your browser</h2>
       </div>
-      <p>Users, vaults, sharing, devices, history and backups. These are real screenshots.</p>
+      <p>Users, vaults, sharing, devices, AI agents, history and backups. These are real screenshots.</p>
     </div>
     <div class="seg" role="tablist">
       <button class="tab on" role="tab" aria-selected="true" data-shot="admin-dashboard" data-caption="Overview: your vaults, their backup plans, devices online and disk usage.">Overview</button>
@@ -344,7 +344,7 @@
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-history" data-caption="Version history: see who changed a note from which device, and restore any version.">History</button>
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-backups" data-caption="Backups: back up now, download a ZIP, restore one file or the whole vault.">Backups</button>
       <button class="tab" role="tab" aria-selected="false" data-shot="admin-newvault" data-caption="New vault: pick a name, backup frequency, how long to keep backups, and members.">New vault</button>
-      <button class="tab" role="tab" aria-selected="false" data-shot="admin-devices" data-caption="Devices: every Obsidian login. Logging one out removes its access immediately.">Devices</button>
+      <button class="tab" role="tab" aria-selected="false" data-shot="admin-devices" data-caption="Devices: every Obsidian login and the vault it uses. Logging one out removes its access immediately.">Devices</button>
     </div>
     <div class="shot">
       <img id="shot" src="assets/admin-dashboard.png" alt="Overview" width="2400" height="1120">
@@ -485,6 +485,7 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
       <details><summary>Can I use it outside my home network?</summary><p>Yes. On a VPS you get HTTPS automatically. At home, the easiest way is Tailscale or a Cloudflare Tunnel. See <a class="link-accent" href="guide.html#outside">Reach it from anywhere</a>.</p></details>
       <details><summary>Do I need Obsidian on every device?</summary><p>No. Every vault can be opened and edited in the browser, on the server's own web page. Changes show up in Obsidian on your other devices within seconds.</p></details>
       <details><summary>Is anything public?</summary><p>Only what you publish. Publishing is off until a vault owner turns it on, and then only notes marked <code>publish: true</code> (or one chosen folder) are on the public site. Everything else needs a login.</p></details>
+      <details><summary>Can an AI agent use my notes?</summary><p>Yes, if you allow it. The server is also an MCP server, so Claude and other AI agents can read, search, create and edit notes without a local folder, for example from scheduled tasks. You choose the vaults and whether access is read-only, and you can revoke it at any time. See <a class="link-accent" href="guide.html#agents">AI agents</a>.</p></details>
       <details><summary>Is it end-to-end encrypted?</summary><p>No. The server can read the notes, which is what makes version previews and server-side backups possible. Since you run the server, that's you.</p></details>
       <details><summary>How do I back up the server?</summary><p>Everything lives in one data folder. Copy it, or use the built-in scheduled backups with optional ZIP files.</p></details>
     </div>
