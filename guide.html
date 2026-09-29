@@ -42,10 +42,12 @@
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
   <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
+  <symbol id="i-tablet" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
 </svg>
 
 <header class="nav">
-  <div class="wrap nav-inner">
+  <div class="nav-inner">
     <a class="logo" href="./"><img src="assets/icon.svg" alt=""> SimpleSync</a>
     <nav class="nav-links" aria-label="Main">
       <a href="./#how">How it works</a>
@@ -77,6 +79,8 @@
       <li><a href="#phone">Phones and tablets</a></li>
       <li><a href="#outside">Reach it from anywhere</a></li>
       <li><a href="#daily">Everyday use</a></li>
+      <li><a href="#web-editor">Edit in the browser</a></li>
+      <li><a href="#publishing">Publish notes</a></li>
       <li><a href="#sharing">Sharing a vault</a></li>
       <li><a href="#restore">History, trash and backups</a></li>
       <li><a href="#devices">Lost a device?</a></li>
@@ -96,7 +100,7 @@
     <p>You need two things:</p>
     <ul>
       <li><b>A machine that runs Docker</b> and stays on: a ZimaOS or CasaOS box, a Synology or Unraid NAS, a Raspberry Pi, or a small VPS with 1 GB of RAM.</li>
-      <li><b>Obsidian 1.4 or newer</b> on every device you want to sync. Desktop, iPhone, iPad and Android all work.</li>
+      <li><b>Obsidian 1.4 or newer</b> on the devices you want to sync. Desktop, iPhone, iPad and Android all work. Anywhere else, a web browser is enough: see <a href="#web-editor">Edit in the browser</a>.</li>
     </ul>
     <div class="callout">
       <div class="callout-title"><svg class="icon"><use href="#i-info"/></svg>How the pieces fit</div>
@@ -106,7 +110,7 @@
     <h2 id="server">1. Install the server</h2>
     <p>Pick the option that matches your machine.</p>
     <div class="panes">
-      <div class="tabs" role="tablist">
+      <div class="seg" role="tablist">
         <button class="tab on" role="tab" aria-selected="true" data-pane="zima">ZimaOS / CasaOS</button>
         <button class="tab" role="tab" aria-selected="false" data-pane="vps">VPS with HTTPS</button>
         <button class="tab" role="tab" aria-selected="false" data-pane="docker">Docker</button>
@@ -179,7 +183,7 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
       <li><b>Keep backups for</b>: 7 days, 30 days, 90 days, 1 year or forever.</li>
       <li>Optionally <b>also save as ZIP</b>, which writes every backup as a separate ZIP file to <code>data/backups/</code>.</li>
     </ul>
-    <figure class="figure"><img src="assets/admin-newvault.png" alt="The New vault form in the web admin" width="2400" height="940" loading="lazy"><figcaption>Creating a vault with a backup plan.</figcaption></figure>
+    <figure class="figure"><img src="assets/admin-newvault.png" alt="The New vault form in the web admin" width="2400" height="1720" loading="lazy"><figcaption>Creating a vault with a backup plan.</figcaption></figure>
     <p>Syncing only for yourself? You can skip users. To add family or colleagues, open <b>Users</b>, create an account for each person, then add them to a vault (see <a href="#sharing">Sharing a vault</a>).</p>
     <div class="callout tip">
       <div class="callout-title"><svg class="icon"><use href="#i-bulb"/></svg>Already have a vault full of notes?</div>
@@ -283,6 +287,43 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
     </ul>
     <p>Not synced: <code>.trash</code>, <code>.git</code>, other hidden folders, <code>workspace.json</code> and the plugin's own login token.</p>
 
+    <h2 id="web-editor">Edit in the browser</h2>
+    <p>Every vault can be read and edited on the server's web page, without Obsidian. Useful on a work computer, a borrowed laptop, or for family members who never installed the app.</p>
+    <ol>
+      <li>Log in to the web admin and open a vault.</li>
+      <li>Click <b>Open notes</b> (or the <b>Notes</b> tab).</li>
+      <li>Pick a note in the tree on the left, or create one with <b>+</b>.</li>
+    </ol>
+    <figure class="figure"><img src="assets/editor.png" alt="The web editor with the file tree, the Markdown source and a live preview" width="2400" height="1480" loading="lazy"><figcaption>File tree, source and live preview side by side.</figcaption></figure>
+    <ul>
+      <li><b>Saving is automatic</b>, a moment after you stop typing (or <kbd>Ctrl</kbd> <kbd>S</kbd>). The dot next to the note name shows the state. Changes reach Obsidian on your devices within seconds and appear in the version history as <code>jirka (web)</code>.</li>
+      <li><b>Edit, Split, Read</b> switch between the source, source with preview, and the preview alone.</li>
+      <li>The toolbar and <kbd>Ctrl</kbd> <kbd>B</kbd> / <kbd>I</kbd> / <kbd>K</kbd> cover the usual formatting. Lists continue when you press <kbd>Enter</kbd>.</li>
+      <li>Type <code>[[</code> to get suggestions for a note to link.</li>
+      <li>Paste or drop an image into the text. It is uploaded next to the note and embedded as <code>![[Pasted image …]]</code>.</li>
+      <li>Rename a note by editing its name at the top. Right-click a note or folder in the tree (or use <b>⋯</b>) to rename or delete it. Deleted files go to the vault's <b>Trash</b>.</li>
+    </ul>
+    <p>If the same note is edited in Obsidian at the same time, the changes are merged line by line. If both sides changed the same line, the other version stays and yours is kept next to it as a <code>(conflict …)</code> copy, exactly as on a device. Members with the <b>Read only</b> role see the notes but can't change them.</p>
+
+    <h2 id="publishing">Publish notes</h2>
+    <p>A vault owner can turn chosen notes into a public website served by your own server. Anyone with the address can read it without an account.</p>
+    <ol>
+      <li>Open the vault and go to <span class="path">Settings<span class="sep">›</span>Publishing</span>.</li>
+      <li>Tick <b>Publish this vault as a website</b> and pick an <b>address</b>, for example <code>garden</code>. The site will be at <code>https://sync.example.com/p/garden/</code>.</li>
+      <li>Choose <b>which notes are public</b>:
+        <ul>
+          <li><b>Chosen notes</b>: notes with <code>publish: true</code> in their properties. The <b>Publish</b> button in the web editor adds it for you, and in Obsidian you can add the property yourself.</li>
+          <li><b>A whole folder</b>: every note in one folder. Leave the folder empty to publish the whole vault.</li>
+        </ul>
+      </li>
+      <li>Optionally set a <b>front page</b> note. Without one, the site starts with a list of the published notes.</li>
+    </ol>
+    <figure class="figure"><img src="assets/published.png" alt="A published note with the site's navigation" width="2400" height="1480" loading="lazy"><figcaption>A published note. Links to notes that aren't published show as plain text.</figcaption></figure>
+    <div class="callout">
+      <div class="callout-title"><svg class="icon"><use href="#i-info"/></svg>What stays private</div>
+      <p>Only published notes are on the site. Links to other notes are shown as plain text, so their names and paths don't leak. An image or file is public only when a published note embeds or links it. To take the site down, untick <b>Publish this vault as a website</b>.</p>
+    </div>
+
     <h2 id="sharing">Sharing a vault</h2>
     <p>Open the vault in the web admin, go to <b>Members</b> and add a user with one of these roles:</p>
     <div class="table-scroll">
@@ -299,8 +340,8 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
 
     <h2 id="restore">History, trash and backups</h2>
     <h3>Restore an older version of a note</h3>
-    <p>Open the vault in the web admin, go to <b>Files</b>, open the note and switch to <b>Version history</b>. Preview any version and click restore. The restored version syncs to every device.</p>
-    <figure class="figure"><img src="assets/admin-history.png" alt="Version history of a note in the web admin" width="2400" height="940" loading="lazy"><figcaption>Every saved version, with a preview.</figcaption></figure>
+    <p>Open the vault in the web admin, go to <b>Files</b> and click <b>Version history</b> next to the note. Preview any version and click restore. The restored version syncs to every device.</p>
+    <figure class="figure"><img src="assets/admin-history.png" alt="Version history of a note in the web admin" width="2400" height="1800" loading="lazy"><figcaption>Every saved version, with a preview.</figcaption></figure>
     <h3>Bring back a deleted file</h3>
     <p>Deleted files are in the vault's <b>Trash</b> tab in the web admin. Restore them from there.</p>
     <h3>Restore from a backup</h3>
