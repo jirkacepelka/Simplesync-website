@@ -52,11 +52,12 @@
 <header class="nav">
   <div class="nav-inner">
     <a class="logo" href="./"><img src="assets/icon.svg" alt=""> SimpleSync</a>
-    <nav class="nav-links" aria-label="Main">
+    <nav class="nav-links" id="navLinks" aria-label="Main">
       <a href="#how">How it works</a>
       <a href="#features">Features</a>
       <a href="#editor">Editor</a>
       <a href="#publish">Publishing</a>
+      <a href="#agents">AI agents</a>
       <a href="#admin">Web admin</a>
       <a href="#install">Install</a>
       <a href="guide.html">Guide</a>
@@ -65,6 +66,7 @@
     <div class="nav-end">
       <a class="btn btn-quiet small" href="https://github.com/jirkacepelka/SimpleSync"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
       <a class="btn btn-primary small" href="https://community.obsidian.md/plugins/simplesync">Get the plugin</a>
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
 </header>
@@ -324,6 +326,29 @@
         <div class="ln">Coffee beans</div>
         <div class="ln add">Fresh basil</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AI AGENTS ============ -->
+<section class="section" id="agents">
+  <div class="wrap split">
+    <div>
+      <span class="eyebrow">AI agents · MCP</span>
+      <h2>Let an AI agent work with your notes</h2>
+      <p>The server is also an MCP server. Claude and other AI agents can list, read, search, create, edit and move notes without any local folder, for example from a scheduled task that files your daily summary. Changes sync to your devices and stay in the version history.</p>
+      <ul class="checks">
+        <li><svg class="icon"><use href="#i-check"/></svg>You pick the vaults and read-only or read-write</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Never more than your own role allows</li>
+        <li><svg class="icon"><use href="#i-check"/></svg>Revoke access any time from the AI agents page</li>
+      </ul>
+      <p><a class="link-accent" href="guide.html#agents">How to connect an agent</a></p>
+    </div>
+    <div class="agent-card" aria-label="Example of an AI agent using a vault">
+      <div class="agent-row"><span class="agent-k">Connector</span><span class="agent-v">sync.example.com/mcp</span></div>
+      <div class="agent-row"><span class="agent-k">Access</span><span class="agent-v">Personal · read-write</span></div>
+      <div class="agent-tools"><span>list</span><span>read</span><span>search</span><span>create</span><span>edit</span><span>append</span><span>move</span><span>delete</span></div>
+      <div class="agent-log"><b>Claude</b> appended to <code>Daily/2026-09-29.md</code></div>
     </div>
   </div>
 </section>
