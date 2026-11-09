@@ -284,6 +284,7 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
       <li><b>Conflicts</b>: if the same lines changed on two devices at once, you get a notice and your version is saved next to the note as <code>Note (conflict 2026-09-26 1530 jirka).md</code>. Compare the two and delete the copy.</li>
       <li><b>Deleting many files</b>: if a sync would delete more than half of the files on the server, it pauses and asks whether to <b>Download them again</b> or <b>Delete on the server too</b>.</li>
       <li><b>Also sync Obsidian settings</b> in the plugin settings syncs the <code>.obsidian</code> folder (appearance, plugins, hotkeys). Turn it on only in vaults shared with people you trust, because synced plugins run on every device.</li>
+      <li><b>Choose plugins to sync</b> appears under that switch. Click <b>Choose…</b> and turn off the plugins whose settings should stay on this device only, for example ones with machine-specific options. Plugins you install later are synced by default.</li>
       <li><b>Disconnect vault</b> stops syncing. Files stay on the device and on the server.</li>
     </ul>
     <p>Not synced: <code>.trash</code>, <code>.git</code>, other hidden folders, <code>workspace.json</code> and the plugin's own login token.</p>
