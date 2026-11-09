@@ -82,6 +82,7 @@
       <li><a href="#web-editor">Edit in the browser</a></li>
       <li><a href="#publishing">Publish notes</a></li>
       <li><a href="#sharing">Sharing a vault</a></li>
+      <li class="sub"><a href="#folder-access">Limit access to folders</a></li>
       <li><a href="#restore">History, trash and backups</a></li>
       <li><a href="#agents">AI agents (MCP)</a></li>
       <li><a href="#devices">Lost a device?</a></li>
@@ -339,6 +340,41 @@ DOMAIN=sync.example.com docker compose -f docker-compose.caddy.yml up -d</code><
       </table>
     </div>
     <p>The person then installs the plugin, logs in with their own name and password, and sees the vault in their list.</p>
+
+    <h3 id="folder-access">Limit access to folders</h3>
+    <p>By default a member sees the whole vault. When some people should see only part of it, for example a campaign team that may read <code>Program 2029</code> but not its <code>Finance</code> folder, use folder access. It is off until you switch it on, and nothing changes for vaults that don't use it.</p>
+    <ol>
+      <li>Open the vault and go to <span class="path">Settings<span class="sep">›</span>Folder access</span>. Tick <b>Use folder access in this vault</b> and save. A new <b>Roles</b> tab appears.</li>
+      <li>On <b>Roles</b>, create a role, e.g. <i>Campaign team</i>, based on <i>Editor</i> (or <i>Read only</i>). Add its folder rules:
+        <ul>
+          <li><code>/</code> → <b>No access</b> hides the whole vault,</li>
+          <li><code>Program 2029</code> → <b>Read only</b>,</li>
+          <li><code>Program 2029/Campaign</code> → <b>Read and edit</b>.</li>
+        </ul>
+      </li>
+      <li>On <b>Members</b>, pick the new role for each person. Under a member you can also add <b>exceptions</b> just for them, e.g. <code>Program 2029/Finance</code> → <b>No access</b>.</li>
+    </ol>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Rule</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>No access</td><td>The folder doesn't exist for that person: not in Obsidian, the web editor, history, trash, downloads, links, search or AI agents</td></tr>
+          <tr><td>Read only</td><td>The folder syncs, but changes made there stay on the device; the plugin says how many weren't uploaded</td></tr>
+          <tr><td>Read and edit</td><td>Normal sync, as far as the person's role allows</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>A rule covers the folder and everything in it, and the most specific rule wins. A member's exception beats their role's rule on the same folder. A rule never allows more than the role's base, so a <i>Read only</i> role can't edit anywhere. Owners and administrators always see everything.</p>
+    <div class="callout warning">
+      <div class="callout-title"><svg class="icon"><use href="#i-alert"/></svg>Good to know</div>
+      <ul>
+        <li>Members limited by any rule don't see <b>Backups</b>, because a backup contains the whole vault.</li>
+        <li>When you take a folder away, the plugin moves its files to Obsidian's trash on that person's devices. Files they had edited stay, but no longer sync.</li>
+        <li>Rules point at folder paths. Renaming a folder in the web editor moves its rules too; renaming it in Obsidian doesn't, and the <b>Roles</b> tab marks rules whose folder no longer exists.</li>
+        <li>With <code>/</code> → No access, the <code>.obsidian</code> settings folder is hidden too. Add <code>.obsidian</code> → Read only if those members should get the shared settings.</li>
+        <li>Members need the SimpleSync plugin 0.8.0 or newer.</li>
+      </ul>
+    </div>
 
     <h2 id="restore">History, trash and backups</h2>
     <h3>Restore an older version of a note</h3>
